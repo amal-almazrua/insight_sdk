@@ -17,8 +17,8 @@
 		9E41F64E1AE812A700158617 /* CorePlot.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9E41F64B1AE8129E00158617 /* CorePlot.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		9E41F6511AE812E500158617 /* LineGraphView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E41F6501AE812E500158617 /* LineGraphView.m */; };
 		9E41F6541AE813D400158617 /* GraphView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E41F6531AE813D400158617 /* GraphView.m */; };
-		9E4C35801B4F8C830021D13A /* edk.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9E4C357F1B4F8C830021D13A /* edk.framework */; };
-		9E4C35811B4F8C830021D13A /* edk.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9E4C357F1B4F8C830021D13A /* edk.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		9E4C358D1B4FADA30021D13A /* edk.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9E4C358C1B4FADA30021D13A /* edk.framework */; };
+		9E4C358E1B4FADA30021D13A /* edk.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9E4C358C1B4FADA30021D13A /* edk.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -29,7 +29,7 @@
 			dstSubfolderSpec = 10;
 			files = (
 				9E41F64E1AE812A700158617 /* CorePlot.framework in Embed Frameworks */,
-				9E4C35811B4F8C830021D13A /* edk.framework in Embed Frameworks */,
+				9E4C358E1B4FADA30021D13A /* edk.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -52,7 +52,7 @@
 		9E41F6501AE812E500158617 /* LineGraphView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LineGraphView.m; sourceTree = "<group>"; };
 		9E41F6521AE813D400158617 /* GraphView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GraphView.h; sourceTree = "<group>"; };
 		9E41F6531AE813D400158617 /* GraphView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GraphView.m; sourceTree = "<group>"; };
-		9E4C357F1B4F8C830021D13A /* edk.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = edk.framework; path = ../../../../lib/mac/Framework/edk.framework; sourceTree = "<group>"; };
+		9E4C358C1B4FADA30021D13A /* edk.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = edk.framework; path = ../../../lib/mac/Framework/edk.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,7 +62,7 @@
 			files = (
 				9E41F64D1AE812A700158617 /* CorePlot.framework in Frameworks */,
 				9E41F64A1AE8100900158617 /* CoreBluetooth.framework in Frameworks */,
-				9E4C35801B4F8C830021D13A /* edk.framework in Frameworks */,
+				9E4C358D1B4FADA30021D13A /* edk.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -72,7 +72,7 @@
 		9E41F6141AE80FCC00158617 = {
 			isa = PBXGroup;
 			children = (
-				9E4C357F1B4F8C830021D13A /* edk.framework */,
+				9E4C358C1B4FADA30021D13A /* edk.framework */,
 				9E41F6491AE8100900158617 /* CoreBluetooth.framework */,
 				9E41F61F1AE80FCC00158617 /* EmotionalState */,
 				9E41F61E1AE80FCC00158617 /* Products */,
@@ -300,7 +300,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/EmotionalState/Framework",
-					../../../../lib/mac/Framework,
+					../../../lib/mac/Framework,
 				);
 				INFOPLIST_FILE = EmotionalState/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
@@ -317,7 +317,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/EmotionalState/Framework",
-					../../../../lib/mac/Framework,
+					../../../lib/mac/Framework,
 				);
 				INFOPLIST_FILE = EmotionalState/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
