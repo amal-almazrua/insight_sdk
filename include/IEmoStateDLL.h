@@ -647,7 +647,6 @@ extern "C"
         \param state                - EmoStateHandle
         \param rawScore             - return raw score
         \param minScale, maxScale   - return scale range
-        \sa IS_PerformanceMetricGetExcitementShortTermModelParams
     */
     EMOSTATE_DLL_API void
         IS_PerformanceMetricGetInstantaneousExcitementModelParams(EmoStateHandle state,
@@ -660,7 +659,6 @@ extern "C"
         \param state                - EmoStateHandle
         \param rawScore             - return raw score
         \param minScale, maxScale   - return scale range
-        \sa IS_PerformanceMetricGetRelaxationModelParams
     */
     EMOSTATE_DLL_API void
         IS_PerformanceMetricGetRelaxationModelParams(EmoStateHandle state,
@@ -673,7 +671,6 @@ extern "C"
         \param state                - EmoStateHandle
         \param rawScore             - return raw score
         \param minScale, maxScale   - return scale range
-        \sa IS_PerformanceMetricGetEngagementBoredomModelParams
     */
     EMOSTATE_DLL_API void
         IS_PerformanceMetricGetEngagementBoredomModelParams(EmoStateHandle state,
@@ -686,7 +683,6 @@ extern "C"
         \param state                - EmoStateHandle
         \param rawScore             - return raw score
         \param minScale, maxScale   - return scale range
-        \sa IS_PerformanceMetricGetStressModelParams
     */
     EMOSTATE_DLL_API void
         IS_PerformanceMetricGetStressModelParams(EmoStateHandle state,
@@ -699,7 +695,6 @@ extern "C"
         \param state                - EmoStateHandle
         \param rawScore             - return raw score
         \param minScale, maxScale   - return scale range
-        \sa IS_PerformanceMetricGetInterestModelParams
     */
     EMOSTATE_DLL_API void
         IS_PerformanceMetricGetInterestModelParams(EmoStateHandle state,

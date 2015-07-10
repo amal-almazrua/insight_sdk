@@ -166,8 +166,10 @@ extern "C"
     } IEE_MotionDataChannel_t;
     
 
-    //! Initializes EmoEngine instance which reads data from the headset. This function should be called at the beginning of programs that make use of EmoEngine, most probably in initialization routine or constructor.
-    /*! 
+    //! Initialize EmoEngine instance which reads data from the headset.
+    /*!
+        This function should be called at the beginning of programs that make use of EmoEngine, most probably in initialization routine or constructor.
+     
         \return EDK_ERROR_CODE
                 - EDK_OK if a connection is established
 
@@ -177,7 +179,7 @@ extern "C"
         IEE_EngineConnect(const char* strDevID = "Emotiv Systems-5");
 
     
-    //! Initializes the connection to a remote instance of EmoEngine.
+    //! Initialize the connection to a remote instance of EmoEngine.
     /*!
         Blocking call
 
@@ -196,8 +198,10 @@ extern "C"
                                 unsigned short port);
     
 
-    //! Terminates the connection to EmoEngine. This function should be called at the end of programs which make use of EmoEngine, most probably in clean up routine or destructor.
+    //! Terminate the connection to EmoEngine.
     /*!
+        This function should be called at the end of programs which make use of EmoEngine, most probably in clean up routine or destructor.
+     
         \return EDK_ERROR_CODE
                 - EDK_OK if disconnection is achieved
 
@@ -207,8 +211,11 @@ extern "C"
         IEE_EngineDisconnect();
 
 
-    //! Controls the output of logging information from EmoEngine (which is off by default). This should only be enabled if instructed to do so by Emotiv developer support for the purposes of collecting diagnostic information.
+    //! Enable diagnostics mode.
     /*!
+        Controls the output of logging information from EmoEngine (which is off by default).
+        This should only be enabled if instructed to do so by Emotiv developer support for the purposes of collecting diagnostic information.
+     
         \param szFilename - The path of the logfile
         \param fEnable - If non-zero, then diagnostic information will be written to logfile.
                        - If zero, then all diagnostic information is suppressed (default).
@@ -223,23 +230,27 @@ extern "C"
                               int nReserved);
 
     
-    //! Returns a handle to memory that can hold an EmoEngine event. This handle can be reused by the caller to retrieve subsequent events.
+    //! Return a handle to memory that can hold an EmoEngine event.
     /*!
+        This handle can be reused by the caller to retrieve subsequent events.
+     
         \return EmoEngineEventHandle
     */
     EDK_API EmoEngineEventHandle
         IEE_EmoEngineEventCreate();
 
 
-    //! Returns a handle to memory that can hold a profile byte stream. This handle can be reused by the caller to retrieve subsequent profile bytes.
+    //! Return a handle to memory that can hold a profile byte stream.
     /*!
+        This handle can be reused by the caller to retrieve subsequent profile bytes.
+     
         \return EmoEngineEventHandle
     */
     EDK_API EmoEngineEventHandle
         IEE_ProfileEventCreate();
 
     
-    //! Frees memory referenced by an event handle.
+    //! Free memory referenced by an event handle.
     /*!
         \param hEvent - a handle returned by IEE_EmoEngineEventCreate() or IEE_ProfileEventCreate()
     */
@@ -247,15 +258,17 @@ extern "C"
         IEE_EmoEngineEventFree(EmoEngineEventHandle hEvent);
 
     
-    //! Returns a handle to memory that can store an EmoState. This handle can be reused by the caller to retrieve subsequent EmoStates.
+    //! Return a handle to memory that can store an EmoState.
     /*!
+        This handle can be reused by the caller to retrieve subsequent EmoStates.
+     
         \return EmoStateHandle
     */
     EDK_API EmoStateHandle
         IEE_EmoStateCreate();
 
     
-    //! Frees memory referenced by an EmoState handle.
+    //! Free memory referenced by an EmoState handle.
     /*!
         \param hState - a handle returned by IEE_EmoStateCreate()
     */
@@ -263,7 +276,7 @@ extern "C"
         IEE_EmoStateFree(EmoStateHandle hState);
 
 
-    //! Returns the event type for an event already retrieved using IEE_EngineGetNextEvent().
+    //! Return the event type for an event already retrieved using IEE_EngineGetNextEvent().
     /*!
         \param hEvent - a handle returned by IEE_EmoEngineEventCreate()
     
@@ -273,8 +286,10 @@ extern "C"
         IEE_EmoEngineEventGetType(EmoEngineEventHandle hEvent);
 
     
-    //! Returns the MentalCommand-specific event type for an IEE_MentalCommandEvent event already retrieved using IEE_EngineGetNextEvent().
+    //! Return the MentalCommand-specific event type.
     /*!
+        Returns the MentalCommand-specific event type for an IEE_MentalCommandEvent event already retrieved using IEE_EngineGetNextEvent().
+     
         \param hEvent - a handle returned by IEE_EmoEngineEventCreate()
     
         \return IEE_MentalCommandEvent_t
@@ -283,8 +298,10 @@ extern "C"
         IEE_MentalCommandEventGetType(EmoEngineEventHandle hEvent);
 
 
-    //! Returns the FacialExpression-specific event type for an IEE_FacialExpressionEvent event already retrieved using IEE_EngineGetNextEvent().
+    //! Return the FacialExpression-specific event type.
     /*!
+        Returns the FacialExpression-specific event type for an IEE_FacialExpressionEvent event already retrieved using IEE_EngineGetNextEvent().
+     
         \param hEvent - a handle returned by IEE_EmoEngineEventCreate()
     
         \return IEE_FacialExpressionEvent_t
@@ -293,7 +310,7 @@ extern "C"
         IEE_FacialExpressionEventGetType(EmoEngineEventHandle hEvent);
     
 
-    //! Retrieves the user ID for IEE_UserAdded and IEE_UserRemoved events.
+    //! Retrieve the user ID for IEE_UserAdded and IEE_UserRemoved events.
     /*!
         \param hEvent - a handle returned by IEE_EmoEngineEventCreate()
         \param pUserIdOut - receives the user ID associated with the current event
@@ -308,7 +325,7 @@ extern "C"
                                     unsigned int *pUserIdOut);
 
     
-    //! Copies an EmoState returned with a IEE_EmoStateUpdate event to memory referenced by an EmoStateHandle.
+    //! Copy an EmoState returned with a IEE_EmoStateUpdate event to memory referenced by an EmoStateHandle.
     /*!
         \param hEvent - a handle returned by IEE_EmoEngineEventCreate() and populated with IEE_EmoEngineGetNextEvent()
         \param hEmoState - a handle returned by IEE_EmoStateCreate()
@@ -323,7 +340,7 @@ extern "C"
                                       EmoStateHandle hEmoState);
     
 
-    //! Retrieves the next EmoEngine event
+    //! Retrieve the next EmoEngine event
     /*!
         Non-blocking call
 
@@ -355,7 +372,7 @@ extern "C"
         IEE_EngineClearEventQueue(int eventTypes);
 
     
-    //! Retrieves number of active users connected to the EmoEngine.
+    //! Retrieve number of active users (headset) connected to the EmoEngine.
     /*!
         \param pNumUserOut - receives number of users
 
@@ -368,8 +385,10 @@ extern "C"
         IEE_EngineGetNumUser(unsigned int* pNumUserOut);
 
 
-    //! Sets the player number displayed on the physical input device (currently the USB Dongle) that corresponds to the specified user
+    //! Set the player number display.
     /*!
+        Sets the player number displayed on the physical input device (currently the USB Dongle) that corresponds to the specified user.
+     
         \param userId - EmoEngine user ID
         \param playerNum - application assigned player number displayed on input device hardware (must be in the range 1-4)
         \return EDK_ERROR_CODE
@@ -382,7 +401,7 @@ extern "C"
                                      unsigned int playerNum);
 
 
-    //! Loads an EmoEngine profile for the specified user.  
+    //! Load an EmoEngine profile for the specified user.
     /*!
         \param userId - user ID
         \param profileBuffer - pointer to buffer containing a serialized user profile previously returned from EmoEngine.
@@ -399,7 +418,7 @@ extern "C"
                            unsigned int length);
 
 
-    //! Returns user profile data in a synchronous manner.
+    //! Return user profile data in a synchronous manner.
     /*!
         Fills in the event referred to by hEvent with an IEE_ProfileEvent event
         that contains the profile data for the specified user.
@@ -417,7 +436,7 @@ extern "C"
                            EmoEngineEventHandle hEvent);
 
 
-    //! Returns a serialized user profile for a default user in a synchronous manner.
+    //! Return a serialized user profile for a default user in a synchronous manner.
     /*!
         Fills in the event referred to by hEvent with an IEE_ProfileEvent event
         that contains the profile data for the default user
@@ -433,7 +452,7 @@ extern "C"
         IEE_GetBaseProfile(EmoEngineEventHandle hEvent);
     
 
-    //! Returns the number of bytes required to store a serialized version of the requested user profile.
+    //! Return the number of bytes required to store a serialized version of the requested user profile.
     /*! 
         \param hEvt - an EmoEngineEventHandle of type IEE_ProfileEvent
         \param pProfileSizeOut - receives number of bytes required by the profile
@@ -448,7 +467,7 @@ extern "C"
                                unsigned int* pProfileSizeOut);
 
     
-    //! Copies a serialized version of the requested user profile into the caller's buffer.
+    //! Copy a serialized version of the requested user profile into the caller's buffer.
     /*!     
         \param hEvt - an EmoEngineEventHandle returned in a IEE_ProfileEvent event
         \param destBuffer - pointer to a destination buffer
@@ -465,7 +484,7 @@ extern "C"
                                 unsigned int length);
     
 
-    //! Loads a user profile from disk and assigns it to the specified user
+    //! Load a user profile from disk and assigns it to the specified user
     /*!     
         \param userID - a valid user ID
         \param szInputFilename - platform-dependent filesystem path of saved user profile
@@ -480,7 +499,7 @@ extern "C"
                             const char* szInputFilename);
     
 
-    //!  Saves a user profile for specified user to disk
+    //!  Save a user profile for specified user to disk
     /*!     
         \param userID - a valid user ID
         \param szOutputFilename - platform-dependent filesystem path for output file
@@ -567,7 +586,7 @@ extern "C"
                                                IEE_FacialExpressionTrainingControl_t control);
 
 
-    //! Gets the facial expression currently selected for FacialExpression training
+    //! Get the facial expression currently selected for FacialExpression training
     /*!
         Blocking call
 
@@ -599,7 +618,7 @@ extern "C"
                                             unsigned int* pTrainingTimeOut);
 
 
-    //! Gets a list of the actions that have been trained by the user
+    //! Get a list of expressions that have been trained by the user
     /*!
         Blocking call
 
@@ -616,7 +635,7 @@ extern "C"
                                                        unsigned long* pTrainedActionsOut);
 
 
-    //! Gets a flag indicating if the user has trained sufficient actions to activate a trained signature
+    //! Check if the user has trained sufficient actions to activate a trained signature
     /*!
         *pfAvailableOut will be set to 1 if the user has trained FE_NEUTRAL and at least
         one other FacialExpression action.  Otherwise, *pfAvailableOut == 0.
@@ -636,7 +655,7 @@ extern "C"
                                                          int* pfAvailableOut);
     
 
-    //! Configures the FacialExpression suite to use either the built-in, universal signature or a personal, trained signature
+    //! Configure the FacialExpression suite to use either the built-in, universal signature or a personal, trained signature
     /*!
         Note: FacialExpression defaults to use its universal signature.  This function will fail if IEE_FacialExpressionGetTrainedSignatureAvailable returns false.
 
@@ -655,7 +674,7 @@ extern "C"
                                              IEE_FacialExpressionSignature_t sigType);
     
 
-    //! Indicates whether the FacialExpression suite is currently using either the built-in, universal signature or a trained signature
+    //! Check whether the FacialExpression suite is currently using either the built-in, universal signature or a trained signature
     /*!
         Blocking call
 
@@ -762,7 +781,7 @@ extern "C"
                                            IEE_MentalCommandAction_t* pActionOut);
 
 
-    //! Gets a list of the MentalCommand actions that have been trained by the user
+    //! Get a list of the actions that have been trained by the user
     /*!
         Blocking call
 
@@ -779,7 +798,7 @@ extern "C"
                                                     unsigned long* pTrainedActionsOut);
     
     
-    //! Gets the current overall skill rating of the user in MentalCommand
+    //! Get the current overall skill rating of the user in MentalCommand
     /*!
         Blocking call
 
@@ -796,7 +815,7 @@ extern "C"
                                                float* pOverallSkillRatingOut);
 
 
-    //! Gets the current skill rating for particular MentalCommand actions of the user
+    //! Get the current skill rating for particular MentalCommand actions of the user
     /*!
         Blocking call
 
@@ -915,6 +934,9 @@ extern "C"
     
     //! Enable or disable signature caching in MentalCommand
     /*!
+        Enable signature caching will shorten the time to build the signature after each training,
+        with the penalty of more memory usage.
+     
         \param userId  - user ID
         \param enabled - flag to set status of caching (1: enable, 0: disable)
 
@@ -973,7 +995,7 @@ extern "C"
                                                unsigned int* pSizeOut);
 
 
-    //! Returns a struct containing details about a specific channel
+    //! Return a struct containing details about a specific channel
     /*!
         \param channelId - channel identifier (see IEmoStateDll.h)
         \param pDescriptorOut - provides detailed sensor location and other info
@@ -988,7 +1010,7 @@ extern "C"
                                     IInputSensorDescriptor_t* pDescriptorOut);
 
 
-    //! Returns the current hardware version of the headset and dongle for a particular user
+    //! Return the current hardware version of the headset and dongle for a particular user
     /*!
         \param userId - user ID for query
         \param pHwVersionOut - hardware version for the user headset/dongle pair. hiword is headset version, loword is dongle version.
@@ -1003,7 +1025,7 @@ extern "C"
                                unsigned long* pHwVersionOut);
     
 
-    //! Returns the current version of the Emotiv SDK
+    //! Return the current version of the Emotiv SDK
     /*!
         \param pszVersionOut - SDK software version in X.X.X format.
         \param nVersionChars - Length of char buffer pointed to by pszVersion argument.
@@ -1020,7 +1042,7 @@ extern "C"
                                unsigned long* pBuildNumOut);
     
 
-    //! Returns the delta of the movement of the gyro since the previous call for a particular user
+    //! Return the delta of the movement of the gyro since the previous call for a particular user
     /*!
         \param userId - user ID for query
         \param pXOut  - horizontal displacement
@@ -1059,7 +1081,7 @@ extern "C"
         IEE_MotionDataCreate();
     
     
-    //! Frees memory referenced by a data handle.
+    //! Free memory referenced by a data handle.
     /*!
         \param hData - a handle returned by IEE_MotionDataCreate()
      */
@@ -1166,7 +1188,7 @@ extern "C"
     
     //! Initialize access to BTLE devices
     /*!
-        Available on Mac/iOS/Android only.
+        \remark Available on Mac/iOS/Android only.
      
         \return true if initialised successfully
      */
@@ -1176,7 +1198,7 @@ extern "C"
     
     //! Connect to a particular headset
     /*!
-        Available on Mac/iOS/Android only.
+        \remark Available on Mac/iOS/Android only.
      
         \param indexDevice - the index of device in list (start with 0)
         \return true if connected successfully
@@ -1187,7 +1209,7 @@ extern "C"
     
     //! Check the signal strength of current connected device
     /*!
-        Available on Mac/iOS/Android only.
+        \remark Available on Mac/iOS/Android only.
      
         If there are multiple headsets around, you should choose to connect to the one with strongest signal.
      
@@ -1199,7 +1221,7 @@ extern "C"
     
     //! Get number of Insight headset in the list
     /*!
-        Available on Mac/iOS/Android only.
+        \remark Available on Mac/iOS/Android only.
      
         \return number of Insight headsets
          */
@@ -1209,7 +1231,7 @@ extern "C"
     
     //! Return name of headset in listed devices
     /*!
-        Available on Mac/iOS/Android only.
+        \remark Available on Mac/iOS/Android only.
      
         \param index - index in list device
         \return const char* - name of the headset
