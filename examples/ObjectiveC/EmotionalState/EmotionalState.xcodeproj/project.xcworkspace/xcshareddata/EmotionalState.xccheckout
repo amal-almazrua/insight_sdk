@@ -14,11 +14,11 @@
 		<string>https://github.com/Emotiv/insight_sdk.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
-	<string>examples/Mac/ObjectiveC/EmotionalState/EmotionalState.xcodeproj</string>
+	<string>examples/ObjectiveC/EmotionalState/EmotionalState.xcodeproj</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
 		<key>1CC2BC97E9DBF8CCCB80E9FF60CB0CC31B56FABE</key>
-		<string>../../../../../..</string>
+		<string>../../../../..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
 	<string>https://github.com/Emotiv/insight_sdk.git</string>
