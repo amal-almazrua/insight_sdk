@@ -1090,7 +1090,7 @@ extern "C"
     /*!
         \param hData - a handle returned by IEE_MotionDataCreate()
         \param channels - a list of channel that you are interested in
-        \param nChannel - number of channels in the channel list
+        \param nChannels - number of channels in the channel list
         \param buffer - pre-allocated 2 dimensional buffer, has to be nChannels x bufferSizeInSample
         \param bufferSizeInSample - size of the pre-allocated buffer for each channel
         \return EDK_ERROR_CODE
