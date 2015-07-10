@@ -73,19 +73,27 @@ extern "C"
 
 
     //! Handle to EmoState structure allocated by IEE_EmoStateCreate.
-    //! \sa IEE_EmoStateCreate()
+    /*!
+        \sa IEE_EmoStateCreate()
+     */
     typedef void* EmoStateHandle;
 
     //! Handle to EmoEngine event structure allocated by IEE_EmoEngineEventCreate.
-    //! \sa IEE_EmoEngineEventCreate()
+    /*!
+        \sa IEE_EmoEngineEventCreate()
+     */
     typedef void* EmoEngineEventHandle;
 
     //! Handle to optimization param allocated by IEE_OptimizationParamCreate.
-    //! \sa IEE_OptimizationParamCreate()
+    /*!
+        \sa IEE_OptimizationParamCreate()
+     */
     typedef void* OptimizationParamHandle;
 
     //! Handle to data placeholder allocated by IEE_MotionDataCreate.
-    //! \sa IEE_MotionDataCreate()
+    /*!
+        \sa IEE_MotionDataCreate()
+     */
     typedef void* DataHandle;
 
     //! EmoEngine event types
@@ -103,6 +111,7 @@ extern "C"
         IEE_AllEvent              = IEE_UserAdded | IEE_UserRemoved | IEE_EmoStateUpdated |
                                     IEE_ProfileEvent | IEE_MentalCommandEvent |
                                     IEE_FacialExpressionEvent | IEE_InternalStateChanged
+                                    //!< Bit-mask for all events except error types
     } IEE_Event_t;
 
     //! FacialExpression event types
@@ -143,17 +152,17 @@ extern "C"
 
     //! Motion data channel description
     typedef enum IEE_MotionDataChannel_enum {
-        IED_COUNTER_MEMS = 0,
-        IED_GYROSCOPEX,
-        IED_GYROSCOPEY,
-        IED_GYROSCOPEZ,
-        IED_ACCX,
-        IED_ACCY,
-        IED_ACCZ,
-        IED_MAGX,
-        IED_MAGY,
-        IED_MAGZ,
-        IED_MOTIONTIMESTAMP
+        IED_COUNTER_MEMS = 0,   //!< Sample counter
+        IED_GYROSCOPEX,         //!< Gyroscope X-axis
+        IED_GYROSCOPEY,         //!< Gyroscope Y-axis
+        IED_GYROSCOPEZ,         //!< Gyroscope Z-axis
+        IED_ACCX,               //!< Accelerometer X-axis
+        IED_ACCY,               //!< Accelerometer Y-axis
+        IED_ACCZ,               //!< Accelerometer Z-axis
+        IED_MAGX,               //!< Magnetometer X-axis
+        IED_MAGY,               //!< Magnetometer Y-axis
+        IED_MAGZ,               //!< Magnetometer Z-axis
+        IED_MOTIONTIMESTAMP     //!< Timestamp of the motion data stream
     } IEE_MotionDataChannel_t;
     
 
@@ -331,8 +340,9 @@ extern "C"
 
     
     //! Clear a specific EmoEngine event type or all events currently inside the event queue.
-    //! Event flags can be combined together as one argument except for IEE_UnknownEvent and IEE_EmulatorError.
     /*!
+        Event flags can be combined together as one argument except for IEE_UnknownEvent and IEE_EmulatorError.
+     
         \param eventTypes - EmoEngine event type (IEE_Event_t), multiple events can be combined such as (IEE_UserAdded | IEE_UserRemoved)
 
         \return EDK_ERROR_CODE
@@ -1057,8 +1067,7 @@ extern "C"
         IEE_MotionDataFree(DataHandle hData);
     
     
-    //! Update the content of the data handle to point to
-    //! new data since the last call
+    //! Update the content of the data handle to point to new data since the last call
     /*!
         \param userId - user ID
         \param hData - a handle returned by IEE_MotionDataCreate()
@@ -1117,9 +1126,9 @@ extern "C"
     
     
     //! Set the size of the motion data buffer.
-    //! The size of the buffer affects how frequent IEE_MotionDataUpdateHandle() needs
-    //! to be called to prevent data loss.
     /*!
+        The size of the buffer affects how frequent IEE_MotionDataUpdateHandle() needs to be called to prevent data loss.
+     
         \param bufferSizeInSec - buffer size in second
         \return EDK_ERROR_CODE
                 - EDK_OK if successful
@@ -1182,7 +1191,7 @@ extern "C"
      
         If there are multiple headsets around, you should choose to connect to the one with strongest signal.
      
-        \param signal strength - stronger signal will have greater value
+        \param value - -30 to 0 (weak to strong)
      */
     EDK_API void
         IEE_GetSignalStrengthBLEInsight(int& value);

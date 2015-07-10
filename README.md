@@ -9,7 +9,7 @@ We are currently preparing a stable SDK for release and updating the repository 
 
 ## API Documentation
 The API reference can be found here:
-[http://emotiv.com/api/windows/insight/INSIGHT\_APIREF/files.html](http://emotiv.com/api/windows/insight/INSIGHT_APIREF/files.html)
+[http://emotiv.com/api/insight/](http://emotiv.com/api/insight/)
 
 ## Support
 Please visit our [forum](https://emotiv.com/forum/) for bugs and feature requests.
