@@ -35,27 +35,21 @@
     #define EMOSTATE_DLL_API extern
 #endif
 
-/**
- * Defining EmoStateHandle as a void pointer
- */
+//! Defining EmoStateHandle as a void pointer
 typedef void* EmoStateHandle;
 
 #ifdef __cplusplus
 extern "C"
 {
 #endif
-    /**
-     * Emotiv Detection Suite enumerator
-     */
+    //! Emotiv Detection Suite enumerator
     typedef enum IEE_EmotivSuite_enum {
 
         IEE_FACIALEXPRESSION = 0, IEE_PERFORMANCEMETRIC, IEE_MENTALCOMMAND
 
     } IEE_EmotivSuite_t;
 
-    /**
-     * FacialExpression facial expression type enumerator
-     */
+    //! FacialExpression facial expression type enumerator
     typedef enum IEE_FacialExpressionAlgo_enum {
 
         FE_NEUTRAL    = 0x0001,
@@ -70,9 +64,7 @@ extern "C"
 
     } IEE_FacialExpressionAlgo_t;
     
-    /**
-     * PerformanceMetric emotional type enumerator
-     */
+    //! PerformanceMetric emotional type enumerator
     typedef enum IEE_PerformanceMetricAlgo_enum {
 
         PM_EXCITEMENT = 0x0001,
@@ -83,9 +75,7 @@ extern "C"
 
     } IEE_PerformanceMetricAlgo_t;
 
-    /**
-     * MentalCommand action type enumerator
-     */
+    //! MentalCommand action type enumerator
     typedef enum IEE_MentalCommandAction_enum {
 
         MC_NEUTRAL                  = 0x0001,
@@ -105,9 +95,7 @@ extern "C"
 
     } IEE_MentalCommandAction_t;
     
-    /**
-     * Wireless Signal Strength enumerator
-     */
+    //! Wireless Signal Strength enumerator
     typedef enum IEE_SignalStrength_enum {
 
         NO_SIG = 0,
@@ -485,20 +473,20 @@ extern "C"
         IS_PerformanceMetricIsActive(EmoStateHandle state,
                                      IEE_PerformanceMetricAlgo_t type);
 
-    //! Returns meditation level of the user
+    //! Returns relaxation level of the user
     /*!
         \param state - EmoStateHandle
 
-        \return meditation level (0.0 to 1.0)
+        \return relaxation level (0.0 to 1.0)
     */
     EMOSTATE_DLL_API float
         IS_PerformanceMetricGetRelaxationScore(EmoStateHandle state);
 
-    //! Returns frustration level of the user
+    //! Returns stress level of the user
     /*!
         \param state - EmoStateHandle
 
-        \return frustration level (0.0 to 1.0)
+        \return stress level (0.0 to 1.0)
     */
     EMOSTATE_DLL_API float
         IS_PerformanceMetricGetStressScore(EmoStateHandle state);
@@ -512,11 +500,11 @@ extern "C"
     EMOSTATE_DLL_API float
         IS_PerformanceMetricGetEngagementBoredomScore(EmoStateHandle state);
 
-    //! Returns valence level of the user
+    //! Returns interest level of the user
     /*!
         \param state - EmoStateHandle
 
-        \return valence level (0.0 to 1.0)
+        \return interest level (0.0 to 1.0)
     */
     EMOSTATE_DLL_API float
         IS_PerformanceMetricGetInterestScore(EmoStateHandle state);
@@ -672,7 +660,7 @@ extern "C"
         \param state                - EmoStateHandle
         \param rawScore             - return raw score
         \param minScale, maxScale   - return scale range
-        \sa IS_PerformanceMetricGetMeditationModelParams
+        \sa IS_PerformanceMetricGetRelaxationModelParams
     */
     EMOSTATE_DLL_API void
         IS_PerformanceMetricGetRelaxationModelParams(EmoStateHandle state,
@@ -698,7 +686,7 @@ extern "C"
         \param state                - EmoStateHandle
         \param rawScore             - return raw score
         \param minScale, maxScale   - return scale range
-        \sa IS_PerformanceMetricGetFrustrationModelParams
+        \sa IS_PerformanceMetricGetStressModelParams
     */
     EMOSTATE_DLL_API void
         IS_PerformanceMetricGetStressModelParams(EmoStateHandle state,
@@ -711,7 +699,7 @@ extern "C"
         \param state                - EmoStateHandle
         \param rawScore             - return raw score
         \param minScale, maxScale   - return scale range
-        \sa IS_PerformanceMetricGetValenceModelParams
+        \sa IS_PerformanceMetricGetInterestModelParams
     */
     EMOSTATE_DLL_API void
         IS_PerformanceMetricGetInterestModelParams(EmoStateHandle state,
