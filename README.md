@@ -21,12 +21,13 @@ Coming soon:
 
 ## API Documentation
 The API reference can be found here:
-[http://emotiv.com/api/insight/](http://emotiv.com/api/insight/)
+
+http://emotiv.com/api/insight/
 
 ## Tools
 
 #### Control Panel
-If you are looking for Emotiv Control Panel, we have now made a browser version - CPanel.
+If you are looking for Emotiv Control Panel, we have now made a browser version - **CPanel**.
 
 * For BTLE connection
   https://cpanel.emotivinsight.com/BTLE/
@@ -34,19 +35,22 @@ If you are looking for Emotiv Control Panel, we have now made a browser version 
 * For USB dongle connection
   https://cpanel.emotivinsight.com/insight/
 
-> **Warning: the CPanel site is actively under development, so please be patient...**
+> **Warning: the CPanel site is under beta testing, so please be patient...**
 
 #### Insight Consumer App Beta (Android)
 Please join the Emotiv Beta community https://plus.google.com/u/0/communities/111719780251099691777 to get access to the Insight Consumer App beta for Android test program.
 
 ## Support
 
-* **I don't have a BTLE compatible device, what do I do?**
- * Check this: https://emotiv.zendesk.com/hc/en-us/articles/204814619
+Please check out the topic **Insight** on **Emotiv Help Centre**:
 
-Our knowledge base is a good source for further reading: https://emotiv.zendesk.com/hc/en-us
+https://emotiv.zendesk.com/hc/en-us/categories/200100495-Insight
+
+Our knowledge base is a good source for further reading:
+
+https://emotiv.zendesk.com/hc/en-us
  
-Please visit our [forum](https://emotiv.com/forum/) for bugs and feature requests.
+Please also visit our [forum](https://emotiv.com/forum/) for bug reports and feature requests.
 
 Happy coding!
 
