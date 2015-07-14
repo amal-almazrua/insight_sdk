@@ -19,6 +19,9 @@ Coming soon:
 * Insight SDK for Linux
 * EmoComposer for Mac
 
+## Known Issues
+* IS_PerformanceMetricGetStressScore, IS_PerformanceMetricGetStressModelParams may return zero on Windows and Mac.
+
 ## API Documentation
 The API reference can be found here:
 
