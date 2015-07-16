@@ -22,7 +22,6 @@
 
 #include <GL/gl.h>
 #include <GL/glu.h>
-#include <glut.h>
 #include <iostream>
 
 #ifdef __linux__
@@ -30,6 +29,7 @@
 #endif
 #include <cmath>
 
+#include "glut.h"
 #include "Iedk.h"
 #include "IedkErrorCode.h"
 #include "IEmoStateDLL.h"

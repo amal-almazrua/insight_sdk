@@ -158,8 +158,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="ExternalProfileManager.cpp" />
+    <ClCompile Include="main.cpp" />
     <ClCompile Include="ProfileControl.cpp" />
-    <ClCompile Include="ProfileManagement.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ExternalProfileManager.h" />
