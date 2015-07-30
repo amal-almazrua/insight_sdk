@@ -149,20 +149,21 @@ extern "C"
         double              yLoc;       //!< Y coordinate from center of head towards ears
         double              zLoc;       //!< Z coordinate from center of head toward top of skull
     } IInputSensorDescriptor_t;
+    
 
     //! Motion data channel description
     typedef enum IEE_MotionDataChannel_enum {
-        IED_COUNTER_MEMS = 0,   //!< Sample counter
-        IED_GYROSCOPEX,         //!< Gyroscope X-axis
-        IED_GYROSCOPEY,         //!< Gyroscope Y-axis
-        IED_GYROSCOPEZ,         //!< Gyroscope Z-axis
-        IED_ACCX,               //!< Accelerometer X-axis
-        IED_ACCY,               //!< Accelerometer Y-axis
-        IED_ACCZ,               //!< Accelerometer Z-axis
-        IED_MAGX,               //!< Magnetometer X-axis
-        IED_MAGY,               //!< Magnetometer Y-axis
-        IED_MAGZ,               //!< Magnetometer Z-axis
-        IED_MOTIONTIMESTAMP     //!< Timestamp of the motion data stream
+        IMD_COUNTER = 0,        //!< Sample counter
+        IMD_GYROX,              //!< Gyroscope X-axis
+        IMD_GYROY,              //!< Gyroscope Y-axis
+        IMD_GYROZ,              //!< Gyroscope Z-axis
+        IMD_ACCX,               //!< Accelerometer X-axis
+        IMD_ACCY,               //!< Accelerometer Y-axis
+        IMD_ACCZ,               //!< Accelerometer Z-axis
+        IMD_MAGX,               //!< Magnetometer X-axis
+        IMD_MAGY,               //!< Magnetometer Y-axis
+        IMD_MAGZ,               //!< Magnetometer Z-axis
+        IMD_TIMESTAMP           //!< Timestamp of the motion data stream
     } IEE_MotionDataChannel_t;
     
 
@@ -1071,7 +1072,6 @@ extern "C"
     EDK_API int
         IEE_HeadsetGyroRezero(unsigned int userId);
     
-    
     //! Return a handle to memory that can hold motion data.
     //  This handle can be reused by the caller to retrieve subsequent data.
     /*!
@@ -1242,6 +1242,6 @@ extern "C"
 #endif
     
 #ifdef __cplusplus
-};
+}
 #endif
 #endif
