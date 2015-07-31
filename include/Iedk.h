@@ -1180,26 +1180,31 @@ extern "C"
         IEE_MotionDataGetSamplingRate(unsigned int userId,
                                       unsigned int* samplingRateOut);
     
-#if defined(__APPLE__) || defined(__ANDROID__)
-    
     //!
     //! The following API calls are only applicable for Mac/iOS/Android to establish BTLE connection with the headset.
     //!
     
+#if defined(__APPLE__)
+    
     //! Initialize access to BTLE devices
     /*!
-        \remark Available on Mac/iOS/Android only.
+        \remark Available on Mac/iOS only.
+     
+        Should be called before IEE_EngineConnect.
      
         \return true if initialised successfully
      */
     EDK_API bool
         IEE_EmoInitDevice();
     
+#endif
+    
+#if defined(__APPLE__) || defined(__ANDROID__)
     
     //! Connect to a particular headset
     /*!
         \remark Available on Mac/iOS/Android only.
-     
+
         \param indexDevice - the index of device in list (start with 0)
         \return true if connected successfully
      */
@@ -1210,9 +1215,9 @@ extern "C"
     //! Check the signal strength of current connected device
     /*!
         \remark Available on Mac/iOS/Android only.
-     
+
         If there are multiple headsets around, you should choose to connect to the one with strongest signal.
-     
+
         \param value - -30 to 0 (weak to strong)
      */
     EDK_API void
@@ -1222,9 +1227,9 @@ extern "C"
     //! Get number of Insight headset in the list
     /*!
         \remark Available on Mac/iOS/Android only.
-     
+
         \return number of Insight headsets
-         */
+     */
     EDK_API int
         IEE_GetNumberDeviceInsight();
     
@@ -1232,10 +1237,10 @@ extern "C"
     //! Return name of headset in listed devices
     /*!
         \remark Available on Mac/iOS/Android only.
-     
+
         \param index - index in list device
         \return const char* - name of the headset
-    */
+     */
     EDK_API const char*
         IEE_GetNameDeviceInsightAtIndex(int index);
     
