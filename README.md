@@ -25,7 +25,7 @@ Coming soon:
 ## API Documentation
 The API reference can be found here:
 
-http://emotiv.com/api/insight/
+http://emotiv.com/api/insight/3.1.16/
 
 ## Tools
 
