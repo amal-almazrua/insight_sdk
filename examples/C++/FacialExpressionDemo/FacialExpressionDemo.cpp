@@ -2,7 +2,7 @@
 **
 ** Copyright 2015 by Emotiv. All rights reserved
 **
-** Example 2 - FacialExpressionDemo
+** Example - FacialExpressionDemo
 **
 ** This example demonstrates how an application can use the ExpressivTM
 ** detection suite to control an animated head model called BlueAvatar.
@@ -75,10 +75,10 @@ int main(int argc, char **argv) {
 
         // Connect directly to EmoEngine
         if (IEE_EngineConnect() != EDK_OK) {
-            throw std::runtime_error("Emotiv Insight Driver start up failed.");
+            throw std::runtime_error("Emotiv Driver start up failed.");
 		}
 		else {
-			std::cout << "Emotiv Insight Driver started!" << std::endl;
+			std::cout << "Emotiv Driver started!" << std::endl;
 		}
 
 		int startSendPort = 30000;

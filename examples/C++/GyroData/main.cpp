@@ -1,7 +1,7 @@
 /****************************************************************************
 **
 ** Copyright 2015 by Emotiv. All rights reserved
-** Example 6 - GyroData
+** Example - GyroData
 ** This example allows built-in 2-axis gyroscope position
 ** Simply turn your head from left to right, up and down.
 ** You will also notice the red indicator dot move in accordance with

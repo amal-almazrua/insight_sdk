@@ -1,7 +1,7 @@
 /****************************************************************************
 **
 ** Copyright 2015 by Emotiv. All rights reserved
-** Example 3 - Profile Management
+** Example - Profile Management
 ** This example demonstrates the API functions that can be used to manage
 ** a user’s profile within Emotiv EmoEngineTM.
 ****************************************************************************/

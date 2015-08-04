@@ -1,7 +1,7 @@
 /****************************************************************************
 **
 ** Copyright 2015 by Emotiv. All rights reserved
-** Example 11 - MultichanelIEEGLogger
+** Example - MultichanelIEEGLogger
 ** This example is similar with the exaple 5( IEEGLogger ) , except using the
 ** IEE_DataGetMultiChannels function instead for EE_DataGet().
 ** It gets all data from all channels in channel list and logs to file
@@ -72,13 +72,13 @@ int main(int argc, char** argv) {
         std::cout << "==================================================================="
                   << std::endl;
         std::cout << "Example to show how to log IEEG Data from "
-                  << "EmoInsightDriver/EmoInsightComposer."
+                  << "EmoDriver/EmoComposer."
                   << std::endl;
         std::cout << "==================================================================="
                   << std::endl;
-        std::cout << "Press '1' to start and connect to the EmoInsightDriver "
+        std::cout << "Press '1' to start and connect to the Emotiv Driver "
                   << std::endl;
-        std::cout << "Press '2' to connect to the EmoInsightComposer         "
+        std::cout << "Press '2' to connect to the EmoComposer         "
                   << std::endl;
 		std::cout << ">> ";
 
@@ -90,13 +90,13 @@ int main(int argc, char** argv) {
 			{
 				if (IEE_EngineConnect() != EDK_OK) {
                     throw std::runtime_error(
-                                "Emotiv Insight Driver start up failed.");
+                                "Emotiv Driver start up failed.");
 				}
 				break;
 			}
 			case 2:
 			{
-				std::cout << "Target IP of EmoInsightComposer? [127.0.0.1] ";
+				std::cout << "Target IP of EmoComposer? [127.0.0.1] ";
 				std::getline(std::cin, input, '\n');
 
 				if (input.empty()) {
@@ -104,7 +104,7 @@ int main(int argc, char** argv) {
 				}
 
 				if (IEE_EngineRemoteConnect(input.c_str(), composerPort) != EDK_OK) {
-                    std::string errMsg = "Cannot connect to EmoInsightComposer on [" +
+                    std::string errMsg = "Cannot connect to EmoComposer on [" +
                                             input + "]";
                     throw std::runtime_error(errMsg.c_str());
 				}

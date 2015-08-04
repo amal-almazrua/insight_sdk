@@ -1,14 +1,11 @@
 /****************************************************************************
- **
- ** Copyright 2015 by Emotiv. All rights reserved
- **
- ** Example - PerformanceMetric Demo
- **
- ** This example receives the PerformanceMetric scores
- ** then calculates the scaled scores
- ** and writes them to the data file( .csv file ...ie)
- **
- ****************************************************************************/
+**
+** Copyright 2015 by Emotiv. All rights reserved
+** Example 10 - PerformanceMetric Demo
+** This example receives the PerformanceMetric scores
+** then calculates the scaled scores
+** and writes them to the data file( .csv file ...ie)
+****************************************************************************/
 
 #include <iostream>
 #include <fstream>
@@ -57,12 +54,12 @@ int main(int argc, char** argv) {
 
         std::cout << "==================================================================="
                   << std::endl;
-        std::cout << "Example to show how to log the EmoState from EmoEngine/"
-                     "EmoComposer."
+        std::cout << "Example to show how to log the EmoState from EmoDriver/"
+                     "EmoInsightComposer."
                   << std::endl;
         std::cout << "==================================================================="
                   << std::endl;
-        std::cout << "Press '1' to start and connect to the EmoEngine "
+        std::cout << "Press '1' to start and connect to the EmoDriver "
                   << std::endl;
         std::cout << "Press '2' to connect to the EmoComposer  "
                   << std::endl;
@@ -76,7 +73,7 @@ int main(int argc, char** argv) {
             {
                 if (IEE_EngineConnect() != EDK_OK) {
                     throw std::runtime_error(
-                                "EmoEngine start up failed.");
+                                "Emotiv Driver start up failed.");
                 }
                 break;
             }
@@ -90,7 +87,8 @@ int main(int argc, char** argv) {
                 }
 
                 if (IEE_EngineRemoteConnect(input.c_str(), composerPort) != EDK_OK) {
-                    std::string errMsg = "Cannot connect to EmoComposer on [" + input + "]";
+                    std::string errMsg = "Cannot connect to EmoComposer on [" +
+                                                                            input + "]";
                     throw std::runtime_error(errMsg.c_str());
                 }
                 break;
@@ -132,7 +130,7 @@ int main(int argc, char** argv) {
 				}
 			}
 			else if (state != EDK_NO_EVENT) {
-				std::cout << "Internal error in EmoEngine!" << std::endl;
+				std::cout << "Internal error in Emotiv Engine!" << std::endl;
 				break;
 			}
 

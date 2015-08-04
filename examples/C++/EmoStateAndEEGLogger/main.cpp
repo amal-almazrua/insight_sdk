@@ -93,13 +93,13 @@ int main(int argc, char** argv) {
 			{
 				if (IEE_EngineConnect() != EDK_OK) {
                     throw std::runtime_error(
-                                "Emotiv Insight Driver start up failed.");
+                                "Emotiv Driver start up failed.");
 				}
 				break;
 			}
 			case 2:
 			{
-				std::cout << "Target IP of EmoInsightComposer? [127.0.0.1] ";
+				std::cout << "Target IP of EmoComposer? [127.0.0.1] ";
 				std::getline(std::cin, input, '\n');
 
 				if (input.empty()) {
@@ -107,7 +107,7 @@ int main(int argc, char** argv) {
 				}
 
 				if (IEE_EngineRemoteConnect(input.c_str(), composerPort) != EDK_OK) {
-                    std::string errMsg = "Cannot connect to EmoInsightComposer on [" +
+                    std::string errMsg = "Cannot connect to EmoComposer on [" +
                                                                             input + "]";
                     throw std::runtime_error(errMsg.c_str());
 				}

@@ -1,14 +1,12 @@
 /****************************************************************************
- **
- ** Copyright 2015 by Emotiv. All rights reserved
- **
- ** Example - EmoStateLogger
- **
- ** This example demonstrates the use of the core Emotiv API functions.
- ** It logs all Emotiv detection results for the attached users after
- ** successfully establishing a connection to Emotiv EmoEngine. or
- ** EmoComposer.
- ****************************************************************************/
+**
+** Copyright 2015 by Emotiv. All rights reserved
+** Example - EmoStateLogger
+** This example demonstrates the use of the core Emotiv API functions.
+** It logs all Emotiv detection results for the attached users after
+** successfully establishing a connection to Emotiv EmoEngineTM or
+** EmoComposerTM
+****************************************************************************/
 
 #include <iostream>
 #include <fstream>
@@ -29,32 +27,29 @@
 #include "Iedk.h"
 #include "IedkErrorCode.h"
 
-// Forward declaration
 void logEmoState(std::ostream& os, unsigned int userID,
                  EmoStateHandle eState, bool withHeader = false);
 
-// Capture key press on Linux
 #ifdef __linux__
 int _kbhit(void);
 #endif
 
-int main(int argc, char** argv)
-{
-    // Initialize the handles for retrieving events and EmoStates
-    EmoEngineEventHandle eEvent       = IEE_EmoEngineEventCreate();
-    EmoStateHandle eState             = IEE_EmoStateCreate();
-    unsigned int userID               = 0;
-    const unsigned short composerPort = 1726;
-    int option = 0;
-    int state  = 0;
-    std::string input;
+int main(int argc, char** argv) {
 
-    try {
+	EmoEngineEventHandle eEvent			= IEE_EmoEngineEventCreate();
+	EmoStateHandle eState				= IEE_EmoStateCreate();
+	unsigned int userID					= 0;
+	const unsigned short composerPort	= 1726;
+	int option = 0;
+	int state  = 0;
+	std::string input;
 
-        if (argc != 2) {
+	try {
+
+		if (argc != 2) {
             throw std::runtime_error("Please supply the log file name.\n"
                                      "Usage: EmoStateLogger [log_file_name].");
-        }
+		}
 
         std::cout << "==================================================================="
                   << std::endl;
@@ -66,16 +61,16 @@ int main(int argc, char** argv)
                   << std::endl;
         std::cout << "Press '2' to connect to the EmoComposer                            "
                   << std::endl;
-        std::cout << ">> ";
+		std::cout << ">> ";
 
-        std::getline(std::cin, input, '\n');
-        option = atoi(input.c_str());
+		std::getline(std::cin, input, '\n');
+		option = atoi(input.c_str());
 
-        switch (option) {
+		switch (option) {
         case 1:
         {
             if (IEE_EngineConnect() != EDK_OK) {
-                throw std::runtime_error("EmoEngine start up failed.");
+                throw std::runtime_error("Emotiv Driver start up failed.");
             }
             break;
         }
@@ -89,54 +84,51 @@ int main(int argc, char** argv)
             }
 
             if (IEE_EngineRemoteConnect(input.c_str(), composerPort) != EDK_OK) {
-                std::string errMsg = "Cannot connect to EmoComposer on [" + input + "]";
+                std::string errMsg = "Cannot connect to EmoComposer on [" +
+                                            input + "]";
                 throw std::runtime_error(errMsg.c_str());
             }
             break;
         }
         default:
-            throw std::runtime_error("Invalid option.");
+            throw std::runtime_error("Invalid option...");
             break;
-        }
-        
-        
-        std::cout << "Start receiving EmoState! Press any key to stop logging..."
+		}
+		
+		
+        std::cout << "Start receiving EmoState! Press any key to stop logging...\n"
                   << std::endl;
 
-        // Open the logfile to write to
-        std::ofstream ofs(argv[1]);
-        bool writeHeader = true;
-        
-        while (!_kbhit()) {
+		std::ofstream ofs(argv[1]);
+		bool writeHeader = true;
+		
+		while (!_kbhit()) {
 
-            state = IEE_EngineGetNextEvent(eEvent);
+			state = IEE_EngineGetNextEvent(eEvent);
 
-            // There is a new event that needs to be handled
-            if (state == EDK_OK) {
+			// New event needs to be handled
+			if (state == EDK_OK) {
 
-                // Get the event type and the user ID of the event
-                IEE_Event_t eventType = IEE_EmoEngineEventGetType(eEvent);
-                IEE_EmoEngineEventGetUserId(eEvent, &userID);
+				IEE_Event_t eventType = IEE_EmoEngineEventGetType(eEvent);
+				IEE_EmoEngineEventGetUserId(eEvent, &userID);
 
-                // Log the EmoState
-                if (eventType == IEE_EmoStateUpdated) {
+				// Log the EmoState if it has been updated
+				if (eventType == IEE_EmoStateUpdated) {
 
-                    // Get the EmoState from the event
-                    IEE_EmoEngineEventGetEmoState(eEvent, eState);
-                    const float timestamp = IS_GetTimeFromStart(eState);
+					IEE_EmoEngineEventGetEmoState(eEvent, eState);
+					const float timestamp = IS_GetTimeFromStart(eState);
 
                     printf("%10.3fs : New EmoState from user %d ...\r",
                            timestamp, userID);
-                    
-                    // Write the current EmoState into file
-                    logEmoState(ofs, userID, eState, writeHeader);
-                    writeHeader = false;
-                }
-            }
-            else if (state != EDK_NO_EVENT) {
-                std::cout << "Internal error in EmoEngine!" << std::endl;
-                break;
-            }
+					
+					logEmoState(ofs, userID, eState, writeHeader);
+					writeHeader = false;
+				}
+			}
+			else if (state != EDK_NO_EVENT) {
+				std::cout << "Internal error in Emotiv Engine!" << std::endl;
+				break;
+			}
 
 #ifdef _WIN32
             Sleep(1);
@@ -144,91 +136,89 @@ int main(int argc, char** argv)
 #ifdef __linux__
             sleep(1);
 #endif
-        }
+		}
 
-        ofs.close();
-    }
+		ofs.close();
+	}
     catch (const std::runtime_error& e) {
-        std::cerr << e.what() << std::endl;
-        std::cout << "Press any key to exit..." << std::endl;
-        getchar();
-    }
-    
-    // Clean up
-    IEE_EngineDisconnect();
-    IEE_EmoStateFree(eState);
-    IEE_EmoEngineEventFree(eEvent);
+		std::cerr << e.what() << std::endl;
+		std::cout << "Press any key to exit..." << std::endl;
+		getchar();
+	}
 
-    return 0;
+	IEE_EngineDisconnect();
+	IEE_EmoStateFree(eState);
+	IEE_EmoEngineEventFree(eEvent);
+
+	return 0;
 }
 
 
 void logEmoState(std::ostream& os, unsigned int userID,
                  EmoStateHandle eState, bool withHeader) {
 
-    // Create the top header if required
-    if (withHeader) {
-        os << "Time,";
-        os << "UserID,";
-        os << "Wireless Signal Status,";
-        os << "Blink,";
-        os << "Wink Left,";
-        os << "Wink Right,";
-        os << "Surprise,";
-        os << "Frown,";
-        os << "Smile,";
-        os << "Clench,";
-        os << "Instantaneous Excitement,";
-        os << "Long Term Excitement,";
-        os << "Engagement/Boredom,";
-        os << "MentalCommand Action,";
-        os << "MentalCommand Power,";
-        os << std::endl;
-    }
+	// Create the top header
+	if (withHeader) {
+		os << "Time,";
+		os << "UserID,";
+		os << "Wireless Signal Status,";
+		os << "Blink,";
+		os << "Wink Left,";
+		os << "Wink Right,";
+		os << "Surprise,";
+		os << "Frown,";
+		os << "Smile,";
+		os << "Clench,";
+		os << "Instantaneous Excitement,";
+		os << "Long Term Excitement,";
+		os << "Engagement/Boredom,";
+		os << "MentalCommand Action,";
+		os << "MentalCommand Power,";
+		os << std::endl;
+	}
 
-    // Log the time stamp and user ID
-    os << IS_GetTimeFromStart(eState) << ",";
-    os << userID << ",";
-    os << static_cast<int>(IS_GetWirelessSignalStatus(eState)) << ",";
-    
+	// Log the time stamp and user ID
+	os << IS_GetTimeFromStart(eState) << ",";
+	os << userID << ",";
+	os << static_cast<int>(IS_GetWirelessSignalStatus(eState)) << ",";
 
-    // FacialExpression Suite results
-    os << IS_FacialExpressionIsBlink(eState) << ",";
-    os << IS_FacialExpressionIsLeftWink(eState) << ",";
-    os << IS_FacialExpressionIsRightWink(eState) << ",";
+	// FacialExpression Suite results
+	os << IS_FacialExpressionIsBlink(eState) << ",";
+	os << IS_FacialExpressionIsLeftWink(eState) << ",";
+	os << IS_FacialExpressionIsRightWink(eState) << ",";
 
-    std::map<IEE_FacialExpressionAlgo_t, float> expressivStates;
 
-    // Get the upper face expression (above eyes) and its intensity
+
+	std::map<IEE_FacialExpressionAlgo_t, float> expressivStates;
+
     IEE_FacialExpressionAlgo_t upperFaceAction =
             IS_FacialExpressionGetUpperFaceAction(eState);
-    float upperFacePower = IS_FacialExpressionGetUpperFaceActionPower(eState);
+    float upperFacePower  = IS_FacialExpressionGetUpperFaceActionPower(eState);
 
-    // Get the lower face expression (below eyes) and its intensity
     IEE_FacialExpressionAlgo_t lowerFaceAction =
             IS_FacialExpressionGetLowerFaceAction(eState);
-    float lowerFacePower = IS_FacialExpressionGetLowerFaceActionPower(eState);
+    float	lowerFacePower  = IS_FacialExpressionGetLowerFaceActionPower(eState);
 
-    expressivStates[ upperFaceAction ] = upperFacePower;
-    expressivStates[ lowerFaceAction ] = lowerFacePower;
-    
-    os << expressivStates[ FE_SURPRISE ] << ","; // eyebrow
-    os << expressivStates[ FE_FROWN    ] << ","; // furrow
-    os << expressivStates[ FE_SMILE    ] << ","; // smile
-    os << expressivStates[ FE_CLENCH   ] << ","; // clench
-    
+	expressivStates[ upperFaceAction ] = upperFacePower;
+	expressivStates[ lowerFaceAction ] = lowerFacePower;
+	
+	os << expressivStates[ FE_SURPRISE     ] << ","; // eyebrow
+	os << expressivStates[ FE_FROWN      ] << ","; // furrow
+	os << expressivStates[ FE_SMILE       ] << ","; // smile
+	os << expressivStates[ FE_CLENCH      ] << ","; // clench
+	
 
-    // PerformanceMetric Suite results
-    os << IS_PerformanceMetricGetInstantaneousExcitementScore(eState) << ",";
-    os << IS_PerformanceMetricGetExcitementLongTermScore(eState) << ",";
-    os << IS_PerformanceMetricGetEngagementBoredomScore(eState) << ",";
+	// PerformanceMetric Suite results
+	os << IS_PerformanceMetricGetInstantaneousExcitementScore(eState) << ",";
+	os << IS_PerformanceMetricGetExcitementLongTermScore(eState) << ",";
 
-    
-    // MentalCommand Suite results
-    os << static_cast<int>(IS_MentalCommandGetCurrentAction(eState)) << ",";
-    os << IS_MentalCommandGetCurrentActionPower(eState);
+	os << IS_PerformanceMetricGetEngagementBoredomScore(eState) << ",";
 
-    os << std::endl;
+	// MentalCommand Suite results
+	os << static_cast<int>(IS_MentalCommandGetCurrentAction(eState)) << ",";
+	os << IS_MentalCommandGetCurrentActionPower(eState);
+
+	os << std::endl;
 }
 
 #ifdef __linux__
@@ -237,19 +227,17 @@ int _kbhit(void)
     struct timeval tv;
     fd_set read_fd;
 
-    tv.tv_sec = 0;
-    tv.tv_usec = 0;
+    tv.tv_sec=0;
+    tv.tv_usec=0;
 
     FD_ZERO(&read_fd);
     FD_SET(0,&read_fd);
 
-    if (select(1, &read_fd,NULL, NULL, &tv) == -1) {
-        return 0;
-    }
+    if(select(1, &read_fd,NULL, NULL, &tv) == -1)
+    return 0;
 
-    if (FD_ISSET(0,&read_fd)) {
+    if(FD_ISSET(0,&read_fd))
         return 1;
-    }
 
     return 0;
 }

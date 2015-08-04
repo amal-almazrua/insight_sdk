@@ -1,7 +1,7 @@
 /****************************************************************************
 **
 ** Copyright 2015 by Emotiv. All rights reserved
-** Example 4 - Mental Command Demo
+** Example - Mental Command Demo
 ** This example demonstrates how the user’s conscious mental intention can be
 ** recognized by the Mental Command TM detection and used to control the
 ** movement of a 3D virtual object.
@@ -67,10 +67,10 @@ int main(int argc, char** argv) {
 	try {
 
 		if (IEE_EngineConnect() != EDK_OK) {
-            throw std::runtime_error("Emotiv Insight Driver start up failed.");
+            throw std::runtime_error("Emotiv Driver start up failed.");
 		}
 		else {
-			std::cout << "Emotiv Insight Driver started!" << std::endl;
+			std::cout << "Emotiv Driver started!" << std::endl;
 		}
 
 		int startSendPort = 20000;
