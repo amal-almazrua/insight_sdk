@@ -42,93 +42,102 @@ extern "C"
 #endif
     //! FacialExpression Suite threshold type enumerator
     typedef enum IEE_FacialExpressionThreshold_enum {
-        FE_SENSITIVITY
+        FE_SENSITIVITY  //!< Sensitivity of each facial expression
     } IEE_FacialExpressionThreshold_t;
 
     //! FacialExpression Suite training control enumerator
     typedef enum IEE_FacialExpressionTrainingControl_enum {
-        FE_NONE = 0,
-        FE_START,
-        FE_ACCEPT,
-        FE_REJECT,
-        FE_ERASE,
-        FE_RESET
+        FE_NONE = 0,    //!< No action
+        FE_START,       //!< Start a new training
+        FE_ACCEPT,      //!< Accept current training
+        FE_REJECT,      //!< Reject current training
+        FE_ERASE,       //!< Erase training data for a facial expression
+        FE_RESET        //!< Reset current training
     } IEE_FacialExpressionTrainingControl_t;
 
     //! FacialExpression Suite signature type enumerator
     typedef enum IEE_FacialExpressionSignature_enum {
-        FE_SIG_UNIVERSAL = 0,
-        FE_SIG_TRAINED
+        FE_SIG_UNIVERSAL = 0,   //!< Use built-in universal signature
+        FE_SIG_TRAINED          //!< Use custom trained signature
     } IEE_FacialExpressionSignature_t;
 
     //! MentalCommand Suite training control enumerator
     typedef enum IEE_MentalCommandTrainingControl_enum {
-        MC_NONE = 0,
-        MC_START,
-        MC_ACCEPT,
-        MC_REJECT,
-        MC_ERASE,
-        MC_RESET
+        MC_NONE = 0,    //!< No action
+        MC_START,       //!< Start a new training
+        MC_ACCEPT,      //!< Accept current training
+        MC_REJECT,      //!< Reject current training
+        MC_ERASE,       //!< Erase training data for an action
+        MC_RESET        //!< Reset current training
     } IEE_MentalCommandTrainingControl_t;
 
 
     //! Handle to EmoState structure allocated by IEE_EmoStateCreate.
-    //! \sa IEE_EmoStateCreate
+    /*!
+        \sa IEE_EmoStateCreate()
+     */
     typedef void* EmoStateHandle;
 
     //! Handle to EmoEngine event structure allocated by IEE_EmoEngineEventCreate.
-    //! \sa IEE_EmoEngineEventCreate
+    /*!
+        \sa IEE_EmoEngineEventCreate()
+     */
     typedef void* EmoEngineEventHandle;
 
     //! Handle to optimization param allocated by IEE_OptimizationParamCreate.
-    //! \sa IEE_OptimizationParamCreate
+    /*!
+        \sa IEE_OptimizationParamCreate()
+     */
     typedef void* OptimizationParamHandle;
 
-    //! Handle to data placeholder allocated by IEE_DataCreate.
-    //! \sa IEE_DataCreate
+    //! Handle to data placeholder allocated by IEE_MotionDataCreate.
+    /*!
+        \sa IEE_MotionDataCreate()
+     */
     typedef void* DataHandle;
 
     //! EmoEngine event types
     typedef enum IEE_Event_enum {
-        IEE_UnknownEvent          = 0x0000,
-        IEE_EmulatorError         = 0x0001,
-        IEE_ReservedEvent         = 0x0002,
-        IEE_UserAdded             = 0x0010,
-        IEE_UserRemoved           = 0x0020,
-        IEE_EmoStateUpdated       = 0x0040,
-        IEE_ProfileEvent          = 0x0080,
-        IEE_MentalCommandEvent    = 0x0100,
-        IEE_FacialExpressionEvent = 0x0200,
-        IEE_InternalStateChanged  = 0x0400,
+        IEE_UnknownEvent          = 0x0000,     //!< An unknown event.
+        IEE_EmulatorError         = 0x0001,     //!< Error event from emulator. Connection to EmoComposer could be lost.
+        IEE_ReservedEvent         = 0x0002,     //!< Reserved event.
+        IEE_UserAdded             = 0x0010,     //!< A headset is connected.
+        IEE_UserRemoved           = 0x0020,     //!< A headset has been disconnected.
+        IEE_EmoStateUpdated       = 0x0040,     //!< Detection results have been updated from EmoEngine.
+        IEE_ProfileEvent          = 0x0080,     //!< A profile has been returned from EmoEngine.
+        IEE_MentalCommandEvent    = 0x0100,     //!< A IEE_MentalCommandEvent_t has been returned from EmoEngine.
+        IEE_FacialExpressionEvent = 0x0200,     //!< A IEE_FacialExpressionEvent_t has been returned from EmoEngine.
+        IEE_InternalStateChanged  = 0x0400,     //!< Reserved for internal use.
         IEE_AllEvent              = IEE_UserAdded | IEE_UserRemoved | IEE_EmoStateUpdated |
                                     IEE_ProfileEvent | IEE_MentalCommandEvent |
                                     IEE_FacialExpressionEvent | IEE_InternalStateChanged
+                                    //!< Bit-mask for all events except error types
     } IEE_Event_t;
 
     //! FacialExpression event types
     typedef enum IEE_FacialExpressionEvent_enum {
-        IEE_FacialExpressionNoEvent = 0,
-        IEE_FacialExpressionTrainingStarted,
-        IEE_FacialExpressionTrainingSucceeded,
-        IEE_FacialExpressionTrainingFailed,
-        IEE_FacialExpressionTrainingCompleted,
-        IEE_FacialExpressionTrainingDataErased,
-        IEE_FacialExpressionTrainingRejected,
-        IEE_FacialExpressionTrainingReset
+        IEE_FacialExpressionNoEvent = 0,        //!< No new event
+        IEE_FacialExpressionTrainingStarted,    //!< The training has begun after FE_START is sent.
+        IEE_FacialExpressionTrainingSucceeded,  //!< The training is succeeded, waiting for FE_ACCEPT or FE_REJECT.
+        IEE_FacialExpressionTrainingFailed,     //!< The training is failed due to signal issues. Please restart training.
+        IEE_FacialExpressionTrainingCompleted,  //!< The training is completed after FE_ACCEPT is sent.
+        IEE_FacialExpressionTrainingDataErased, //!< The training data for a particular facial expression has been erased by FE_ERASE.
+        IEE_FacialExpressionTrainingRejected,   //!< The training is rejected after FE_REJECT is sent.
+        IEE_FacialExpressionTrainingReset       //!< The training has been reset after FE_RESET is sent.
     } IEE_FacialExpressionEvent_t;
     
     //! MentalCommand event types
     typedef enum IEE_MentalCommandEvent_enum {
-        IEE_MentalCommandNoEvent = 0,
-        IEE_MentalCommandTrainingStarted,
-        IEE_MentalCommandTrainingSucceeded,
-        IEE_MentalCommandTrainingFailed,
-        IEE_MentalCommandTrainingCompleted,
-        IEE_MentalCommandTrainingDataErased,
-        IEE_MentalCommandTrainingRejected,
-        IEE_MentalCommandTrainingReset,
-        IEE_MentalCommandAutoSamplingNeutralCompleted,
-        IEE_MentalCommandSignatureUpdated
+        IEE_MentalCommandNoEvent = 0,                   //!< No new event
+        IEE_MentalCommandTrainingStarted,               //!< The training has begun after MC_START is sent.
+        IEE_MentalCommandTrainingSucceeded,             //!< The training is succeeded, waiting for MC_ACCEPT or MC_REJECT.
+        IEE_MentalCommandTrainingFailed,                //!< The training is failed due to signal issues. Please restart training.
+        IEE_MentalCommandTrainingCompleted,             //!< The training is completed after MC_ACCEPT is sent.
+        IEE_MentalCommandTrainingDataErased,            //!< The training data for a particular action has been erased by MC_ERASE.
+        IEE_MentalCommandTrainingRejected,              //!< The training is rejected after MC_REJECT is sent.
+        IEE_MentalCommandTrainingReset,                 //!< The training has been reset after MC_RESET is sent.
+        IEE_MentalCommandAutoSamplingNeutralCompleted,  //!< The neutral training is completed.
+        IEE_MentalCommandSignatureUpdated               //!< The mental command signature has been updated for new actions.
     } IEE_MentalCommandEvent_t;
     
     //! Input sensor description
@@ -141,13 +150,26 @@ extern "C"
         double              zLoc;       //!< Z coordinate from center of head toward top of skull
     } IInputSensorDescriptor_t;
 
-typedef enum IEE_MotionDataChannel_enum {
-    IED_COUNTER_MEMS =0, IED_GYROSCOPEX, IED_GYROSCOPEY, IED_GYROSCOPEZ,
-    IED_ACCX, IED_ACCY, IED_ACCZ,IED_MAGX, IED_MAGY, IED_MAGZ,IED_MOTIONTIMESTAMP
-} IEE_MotionDataChannel_t;
+    //! Motion data channel description
+    typedef enum IEE_MotionDataChannel_enum {
+        IMD_COUNTER = 0,        //!< Sample counter
+        IMD_GYROX,              //!< Gyroscope X-axis
+        IMD_GYROY,              //!< Gyroscope Y-axis
+        IMD_GYROZ,              //!< Gyroscope Z-axis
+        IMD_ACCX,               //!< Accelerometer X-axis
+        IMD_ACCY,               //!< Accelerometer Y-axis
+        IMD_ACCZ,               //!< Accelerometer Z-axis
+        IMD_MAGX,               //!< Magnetometer X-axis
+        IMD_MAGY,               //!< Magnetometer Y-axis
+        IMD_MAGZ,               //!< Magnetometer Z-axis
+        IMD_TIMESTAMP           //!< Timestamp of the motion data stream
+    } IEE_MotionDataChannel_t;
+    
 
-    //! Initializes EmoEngine instance which reads Motion data from EPOC. This function should be called at the beginning of programs that make use of EmoEngine, most probably in initialization routine or constructor.
-    /*! 
+    //! Initialize EmoEngine instance which reads data from the headset.
+    /*!
+        This function should be called at the beginning of programs that make use of EmoEngine, most probably in initialization routine or constructor.
+     
         \return EDK_ERROR_CODE
                 - EDK_OK if a connection is established
 
@@ -157,7 +179,7 @@ typedef enum IEE_MotionDataChannel_enum {
         IEE_EngineConnect(const char* strDevID = "Emotiv Systems-5");
 
     
-    //! Initializes the connection to a remote instance of EmoEngine.
+    //! Initialize the connection to a remote instance of EmoEngine.
     /*!
         Blocking call
 
@@ -176,8 +198,10 @@ typedef enum IEE_MotionDataChannel_enum {
                                 unsigned short port);
     
 
-    //! Terminates the connection to EmoEngine. This function should be called at the end of programs which make use of EmoEngine, most probably in clean up routine or destructor.
+    //! Terminate the connection to EmoEngine.
     /*!
+        This function should be called at the end of programs which make use of EmoEngine, most probably in clean up routine or destructor.
+     
         \return EDK_ERROR_CODE
                 - EDK_OK if disconnection is achieved
 
@@ -187,8 +211,11 @@ typedef enum IEE_MotionDataChannel_enum {
         IEE_EngineDisconnect();
 
 
-    //! Controls the output of logging information from EmoEngine (which is off by default). This should only be enabled if instructed to do so by Emotiv developer support for the purposes of collecting diagnostic information.
+    //! Enable diagnostics mode.
     /*!
+        Controls the output of logging information from EmoEngine (which is off by default).
+        This should only be enabled if instructed to do so by Emotiv developer support for the purposes of collecting diagnostic information.
+     
         \param szFilename - The path of the logfile
         \param fEnable - If non-zero, then diagnostic information will be written to logfile.
                        - If zero, then all diagnostic information is suppressed (default).
@@ -203,23 +230,27 @@ typedef enum IEE_MotionDataChannel_enum {
                               int nReserved);
 
     
-    //! Returns a handle to memory that can hold an EmoEngine event. This handle can be reused by the caller to retrieve subsequent events.
+    //! Return a handle to memory that can hold an EmoEngine event.
     /*!
+        This handle can be reused by the caller to retrieve subsequent events.
+     
         \return EmoEngineEventHandle
     */
     EDK_API EmoEngineEventHandle
         IEE_EmoEngineEventCreate();
 
 
-    //! Returns a handle to memory that can hold a profile byte stream. This handle can be reused by the caller to retrieve subsequent profile bytes.
+    //! Return a handle to memory that can hold a profile byte stream.
     /*!
+        This handle can be reused by the caller to retrieve subsequent profile bytes.
+     
         \return EmoEngineEventHandle
     */
     EDK_API EmoEngineEventHandle
         IEE_ProfileEventCreate();
 
     
-    //! Frees memory referenced by an event handle.
+    //! Free memory referenced by an event handle.
     /*!
         \param hEvent - a handle returned by IEE_EmoEngineEventCreate() or IEE_ProfileEventCreate()
     */
@@ -227,15 +258,17 @@ typedef enum IEE_MotionDataChannel_enum {
         IEE_EmoEngineEventFree(EmoEngineEventHandle hEvent);
 
     
-    //! Returns a handle to memory that can store an EmoState. This handle can be reused by the caller to retrieve subsequent EmoStates.
+    //! Return a handle to memory that can store an EmoState.
     /*!
+        This handle can be reused by the caller to retrieve subsequent EmoStates.
+     
         \return EmoStateHandle
     */
     EDK_API EmoStateHandle
         IEE_EmoStateCreate();
 
     
-    //! Frees memory referenced by an EmoState handle.
+    //! Free memory referenced by an EmoState handle.
     /*!
         \param hState - a handle returned by IEE_EmoStateCreate()
     */
@@ -243,7 +276,7 @@ typedef enum IEE_MotionDataChannel_enum {
         IEE_EmoStateFree(EmoStateHandle hState);
 
 
-    //! Returns the event type for an event already retrieved using IEE_EngineGetNextEvent().
+    //! Return the event type for an event already retrieved using IEE_EngineGetNextEvent().
     /*!
         \param hEvent - a handle returned by IEE_EmoEngineEventCreate()
     
@@ -253,8 +286,10 @@ typedef enum IEE_MotionDataChannel_enum {
         IEE_EmoEngineEventGetType(EmoEngineEventHandle hEvent);
 
     
-    //! Returns the MentalCommand-specific event type for an IEE_MentalCommandEvent event already retrieved using IEE_EngineGetNextEvent().
+    //! Return the MentalCommand-specific event type.
     /*!
+        Returns the MentalCommand-specific event type for an IEE_MentalCommandEvent event already retrieved using IEE_EngineGetNextEvent().
+     
         \param hEvent - a handle returned by IEE_EmoEngineEventCreate()
     
         \return IEE_MentalCommandEvent_t
@@ -263,8 +298,10 @@ typedef enum IEE_MotionDataChannel_enum {
         IEE_MentalCommandEventGetType(EmoEngineEventHandle hEvent);
 
 
-    //! Returns the FacialExpression-specific event type for an IEE_FacialExpressionEvent event already retrieved using IEE_EngineGetNextEvent().
+    //! Return the FacialExpression-specific event type.
     /*!
+        Returns the FacialExpression-specific event type for an IEE_FacialExpressionEvent event already retrieved using IEE_EngineGetNextEvent().
+     
         \param hEvent - a handle returned by IEE_EmoEngineEventCreate()
     
         \return IEE_FacialExpressionEvent_t
@@ -273,7 +310,7 @@ typedef enum IEE_MotionDataChannel_enum {
         IEE_FacialExpressionEventGetType(EmoEngineEventHandle hEvent);
     
 
-    //! Retrieves the user ID for IEE_UserAdded and IEE_UserRemoved events.
+    //! Retrieve the user ID for IEE_UserAdded and IEE_UserRemoved events.
     /*!
         \param hEvent - a handle returned by IEE_EmoEngineEventCreate()
         \param pUserIdOut - receives the user ID associated with the current event
@@ -288,7 +325,7 @@ typedef enum IEE_MotionDataChannel_enum {
                                     unsigned int *pUserIdOut);
 
     
-    //! Copies an EmoState returned with a IEE_EmoStateUpdate event to memory referenced by an EmoStateHandle.
+    //! Copy an EmoState returned with a IEE_EmoStateUpdate event to memory referenced by an EmoStateHandle.
     /*!
         \param hEvent - a handle returned by IEE_EmoEngineEventCreate() and populated with IEE_EmoEngineGetNextEvent()
         \param hEmoState - a handle returned by IEE_EmoStateCreate()
@@ -303,7 +340,7 @@ typedef enum IEE_MotionDataChannel_enum {
                                       EmoStateHandle hEmoState);
     
 
-    //! Retrieves the next EmoEngine event
+    //! Retrieve the next EmoEngine event
     /*!
         Non-blocking call
 
@@ -320,8 +357,9 @@ typedef enum IEE_MotionDataChannel_enum {
 
     
     //! Clear a specific EmoEngine event type or all events currently inside the event queue.
-    //! Event flags can be combined together as one argument except for IEE_UnknownEvent and IEE_EmulatorError.
     /*!
+        Event flags can be combined together as one argument except for IEE_UnknownEvent and IEE_EmulatorError.
+     
         \param eventTypes - EmoEngine event type (IEE_Event_t), multiple events can be combined such as (IEE_UserAdded | IEE_UserRemoved)
 
         \return EDK_ERROR_CODE
@@ -334,7 +372,7 @@ typedef enum IEE_MotionDataChannel_enum {
         IEE_EngineClearEventQueue(int eventTypes);
 
     
-    //! Retrieves number of active users connected to the EmoEngine.
+    //! Retrieve number of active users (headset) connected to the EmoEngine.
     /*!
         \param pNumUserOut - receives number of users
 
@@ -347,8 +385,10 @@ typedef enum IEE_MotionDataChannel_enum {
         IEE_EngineGetNumUser(unsigned int* pNumUserOut);
 
 
-    //! Sets the player number displayed on the physical input device (currently the USB Dongle) that corresponds to the specified user
+    //! Set the player number display.
     /*!
+        Sets the player number displayed on the physical input device (currently the USB Dongle) that corresponds to the specified user.
+     
         \param userId - EmoEngine user ID
         \param playerNum - application assigned player number displayed on input device hardware (must be in the range 1-4)
         \return EDK_ERROR_CODE
@@ -361,7 +401,7 @@ typedef enum IEE_MotionDataChannel_enum {
                                      unsigned int playerNum);
 
 
-    //! Loads an EmoEngine profile for the specified user.  
+    //! Load an EmoEngine profile for the specified user.
     /*!
         \param userId - user ID
         \param profileBuffer - pointer to buffer containing a serialized user profile previously returned from EmoEngine.
@@ -378,7 +418,7 @@ typedef enum IEE_MotionDataChannel_enum {
                            unsigned int length);
 
 
-    //! Returns user profile data in a synchronous manner.
+    //! Return user profile data in a synchronous manner.
     /*!
         Fills in the event referred to by hEvent with an IEE_ProfileEvent event
         that contains the profile data for the specified user.
@@ -396,7 +436,7 @@ typedef enum IEE_MotionDataChannel_enum {
                            EmoEngineEventHandle hEvent);
 
 
-    //! Returns a serialized user profile for a default user in a synchronous manner.
+    //! Return a serialized user profile for a default user in a synchronous manner.
     /*!
         Fills in the event referred to by hEvent with an IEE_ProfileEvent event
         that contains the profile data for the default user
@@ -412,7 +452,7 @@ typedef enum IEE_MotionDataChannel_enum {
         IEE_GetBaseProfile(EmoEngineEventHandle hEvent);
     
 
-    //! Returns the number of bytes required to store a serialized version of the requested user profile.
+    //! Return the number of bytes required to store a serialized version of the requested user profile.
     /*! 
         \param hEvt - an EmoEngineEventHandle of type IEE_ProfileEvent
         \param pProfileSizeOut - receives number of bytes required by the profile
@@ -427,7 +467,7 @@ typedef enum IEE_MotionDataChannel_enum {
                                unsigned int* pProfileSizeOut);
 
     
-    //! Copies a serialized version of the requested user profile into the caller's buffer.
+    //! Copy a serialized version of the requested user profile into the caller's buffer.
     /*!     
         \param hEvt - an EmoEngineEventHandle returned in a IEE_ProfileEvent event
         \param destBuffer - pointer to a destination buffer
@@ -444,7 +484,7 @@ typedef enum IEE_MotionDataChannel_enum {
                                 unsigned int length);
     
 
-    //! Loads a user profile from disk and assigns it to the specified user
+    //! Load a user profile from disk and assigns it to the specified user
     /*!     
         \param userID - a valid user ID
         \param szInputFilename - platform-dependent filesystem path of saved user profile
@@ -459,7 +499,7 @@ typedef enum IEE_MotionDataChannel_enum {
                             const char* szInputFilename);
     
 
-    //!  Saves a user profile for specified user to disk
+    //!  Save a user profile for specified user to disk
     /*!     
         \param userID - a valid user ID
         \param szOutputFilename - platform-dependent filesystem path for output file
@@ -546,7 +586,7 @@ typedef enum IEE_MotionDataChannel_enum {
                                                IEE_FacialExpressionTrainingControl_t control);
 
 
-    //! Gets the facial expression currently selected for FacialExpression training
+    //! Get the facial expression currently selected for FacialExpression training
     /*!
         Blocking call
 
@@ -578,7 +618,7 @@ typedef enum IEE_MotionDataChannel_enum {
                                             unsigned int* pTrainingTimeOut);
 
 
-    //! Gets a list of the actions that have been trained by the user
+    //! Get a list of expressions that have been trained by the user
     /*!
         Blocking call
 
@@ -595,7 +635,7 @@ typedef enum IEE_MotionDataChannel_enum {
                                                        unsigned long* pTrainedActionsOut);
 
 
-    //! Gets a flag indicating if the user has trained sufficient actions to activate a trained signature
+    //! Check if the user has trained sufficient actions to activate a trained signature
     /*!
         *pfAvailableOut will be set to 1 if the user has trained FE_NEUTRAL and at least
         one other FacialExpression action.  Otherwise, *pfAvailableOut == 0.
@@ -615,7 +655,7 @@ typedef enum IEE_MotionDataChannel_enum {
                                                          int* pfAvailableOut);
     
 
-    //! Configures the FacialExpression suite to use either the built-in, universal signature or a personal, trained signature
+    //! Configure the FacialExpression suite to use either the built-in, universal signature or a personal, trained signature
     /*!
         Note: FacialExpression defaults to use its universal signature.  This function will fail if IEE_FacialExpressionGetTrainedSignatureAvailable returns false.
 
@@ -634,7 +674,7 @@ typedef enum IEE_MotionDataChannel_enum {
                                              IEE_FacialExpressionSignature_t sigType);
     
 
-    //! Indicates whether the FacialExpression suite is currently using either the built-in, universal signature or a trained signature
+    //! Check whether the FacialExpression suite is currently using either the built-in, universal signature or a trained signature
     /*!
         Blocking call
 
@@ -741,7 +781,7 @@ typedef enum IEE_MotionDataChannel_enum {
                                            IEE_MentalCommandAction_t* pActionOut);
 
 
-    //! Gets a list of the MentalCommand actions that have been trained by the user
+    //! Get a list of the actions that have been trained by the user
     /*!
         Blocking call
 
@@ -758,7 +798,7 @@ typedef enum IEE_MotionDataChannel_enum {
                                                     unsigned long* pTrainedActionsOut);
     
     
-    //! Gets the current overall skill rating of the user in MentalCommand
+    //! Get the current overall skill rating of the user in MentalCommand
     /*!
         Blocking call
 
@@ -775,7 +815,7 @@ typedef enum IEE_MotionDataChannel_enum {
                                                float* pOverallSkillRatingOut);
 
 
-    //! Gets the current skill rating for particular MentalCommand actions of the user
+    //! Get the current skill rating for particular MentalCommand actions of the user
     /*!
         Blocking call
 
@@ -894,6 +934,9 @@ typedef enum IEE_MotionDataChannel_enum {
     
     //! Enable or disable signature caching in MentalCommand
     /*!
+        Enable signature caching will shorten the time to build the signature after each training,
+        with the penalty of more memory usage.
+     
         \param userId  - user ID
         \param enabled - flag to set status of caching (1: enable, 0: disable)
 
@@ -952,22 +995,22 @@ typedef enum IEE_MotionDataChannel_enum {
                                                unsigned int* pSizeOut);
 
 
-    //! Returns a struct containing details about the specified Motion channel's headset 
+    //! Return a struct containing details about a specific channel
     /*!
-        \param channelId - channel identifier (see EmoStateDll.h)
+        \param channelId - channel identifier (see IEmoStateDll.h)
         \param pDescriptorOut - provides detailed sensor location and other info
 
         \return EDK_ERROR_CODE
                 - EDK_OK if successful
 
-        \sa EmoStateDll.h, IedkErrorCode.h
+        \sa IEmoStateDll.h, IedkErrorCode.h
     */
     EDK_API int
         IEE_HeadsetGetSensorDetails(IEE_InputChannels_t channelId,
                                     IInputSensorDescriptor_t* pDescriptorOut);
 
 
-    //! Returns the current hardware version of the headset and dongle for a particular user
+    //! Return the current hardware version of the headset and dongle for a particular user
     /*!
         \param userId - user ID for query
         \param pHwVersionOut - hardware version for the user headset/dongle pair. hiword is headset version, loword is dongle version.
@@ -975,14 +1018,14 @@ typedef enum IEE_MotionDataChannel_enum {
         \return EDK_ERROR_CODE
                 - EDK_OK if successful
 
-        \sa EmoStateDll.h, IedkErrorCode.h
+        \sa IEmoStateDll.h, IedkErrorCode.h
     */
     EDK_API int
         IEE_HardwareGetVersion(unsigned int userId,
                                unsigned long* pHwVersionOut);
     
 
-    //! Returns the current version of the Emotiv SDK
+    //! Return the current version of the Emotiv SDK
     /*!
         \param pszVersionOut - SDK software version in X.X.X format.
         \param nVersionChars - Length of char buffer pointed to by pszVersion argument.
@@ -999,7 +1042,7 @@ typedef enum IEE_MotionDataChannel_enum {
                                unsigned long* pBuildNumOut);
     
 
-    //! Returns the delta of the movement of the gyro since the previous call for a particular user
+    //! Return the delta of the movement of the gyro since the previous call for a particular user
     /*!
         \param userId - user ID for query
         \param pXOut  - horizontal displacement
@@ -1008,8 +1051,7 @@ typedef enum IEE_MotionDataChannel_enum {
         \return EDK_ERROR_CODE
                 - EDK_OK if successful
 
-        \sa EmoStateDll.h
-        \sa IedkErrorCode.h
+        \sa IEmoStateDll.h, IedkErrorCode.h
     */
     EDK_API int
         IEE_HeadsetGetGyroDelta(unsigned int userId,
@@ -1024,128 +1066,187 @@ typedef enum IEE_MotionDataChannel_enum {
         \return EDK_ERROR_CODE
                 - EDK_OK if successful
 
-        \sa EmoStateDll.h
-        \sa IedkErrorCode.h
+        \sa IEmoStateDll.h, IedkErrorCode.h
     */
     EDK_API int
         IEE_HeadsetGyroRezero(unsigned int userId);
-
-    //! Returns a handle to memory that can hold motion data.
+    
+    //! Return a handle to memory that can hold motion data.
     //  This handle can be reused by the caller to retrieve subsequent data.
     /*!
         \return DataHandle
-    */
-    EDK_API DataHandle IEE_MotionDataCreate();
-
-    //! Frees memory referenced by a data handle.
+     */
+    EDK_API DataHandle
+        IEE_MotionDataCreate();
+    
+    
+    //! Free memory referenced by a data handle.
     /*!
         \param hData - a handle returned by IEE_MotionDataCreate()
-    */
-    EDK_API void IEE_MotionDataFree(DataHandle hData);
-
-    //! Updates the content of the data handle to point to
-    //! new data since the last call
+     */
+    EDK_API void
+        IEE_MotionDataFree(DataHandle hData);
+    
+    
+    //! Update the content of the data handle to point to new data since the last call
     /*!
         \param userId - user ID
         \param hData - a handle returned by IEE_MotionDataCreate()
         \return EDK_ERROR_CODE
-                - EDK_ERROR_CODE = EDK_OK if successful
-    */
-    EDK_API int IEE_MotionDataUpdateHandle(unsigned int userId, DataHandle hData);
-
-    //! Extracts data of a particulat channel from the data handle
+                - EDK_OK if successful
+     */
+    EDK_API int
+        IEE_MotionDataUpdateHandle(unsigned int userId,
+                                   DataHandle hData);
+    
+    
+    //! Extract data of a particular channel from the data handle
     /*!
         \param hData - a handle returned by IEE_MotionDataCreate()
         \param channel - channel that you are interested in
         \param buffer - pre-allocated buffer
         \param bufferSizeInSample - size of the pre-allocated buffer
         \return EDK_ERROR_CODE
-                - EDK_ERROR_CODE = EDK_OK if successful
-    */
-    EDK_API int IEE_MotionDataGet(DataHandle hData, IEE_MotionDataChannel_t channel, double buffer[],
-                                 unsigned int bufferSizeInSample);
-
-    //! Extracts data of a list of channels from the data handle
+                - EDK_OK if successful
+     */
+    EDK_API int
+        IEE_MotionDataGet(DataHandle hData,
+                          IEE_MotionDataChannel_t channel,
+                          double buffer[],
+                          unsigned int bufferSizeInSample);
+    
+    
+    //! Extract data of a list of channels from the data handle
     /*!
         \param hData - a handle returned by IEE_MotionDataCreate()
         \param channels - a list of channel that you are interested in
-        \param nChannel - number of channels in the channel list
+        \param nChannels - number of channels in the channel list
         \param buffer - pre-allocated 2 dimensional buffer, has to be nChannels x bufferSizeInSample
         \param bufferSizeInSample - size of the pre-allocated buffer for each channel
         \return EDK_ERROR_CODE
-                - EDK_ERROR_CODE = EDK_OK if successful
-    */
-    EDK_API int IEE_MotionDataGetMultiChannels(DataHandle hData,
-                                              IEE_MotionDataChannel_t channels[],
-                                              unsigned int nChannels, double* buffer[],
-                                              unsigned int bufferSizeInSample);
-
-    //! Returns number of sample of motion data stored in the data handle
+                - EDK_OK if successful
+     */
+    EDK_API int
+        IEE_MotionDataGetMultiChannels(DataHandle hData,
+                                       IEE_MotionDataChannel_t channels[],
+                                       unsigned int nChannels,
+                                       double* buffer[],
+                                       unsigned int bufferSizeInSample);
+    
+    
+    //! Return number of sample of motion data stored in the data handle
     /*!
         \param hData - a handle returned by IEE_MotionDataCreate()
         \param nSampleOut - receives the number of sample of data stored in the data handle
         \return EDK_ERROR_CODE
-                - EDK_ERROR_CODE = EDK_OK if successful
-    */
-    EDK_API int IEE_MotionDataGetNumberOfSample(DataHandle hData,
-                                               unsigned int* nSampleOut);
-
-    //! Sets the size of the motion data buffer.
-    //! The size of the buffer affects how frequent IEE_MotionDataUpdateHandle() needs
-    //! to be called to prevent data loss.
+                - EDK_OK if successful
+     */
+    EDK_API int
+        IEE_MotionDataGetNumberOfSample(DataHandle hData,
+                                        unsigned int* nSampleOut);
+    
+    
+    //! Set the size of the motion data buffer.
     /*!
+        The size of the buffer affects how frequent IEE_MotionDataUpdateHandle() needs to be called to prevent data loss.
+     
         \param bufferSizeInSec - buffer size in second
         \return EDK_ERROR_CODE
-                - EDK_ERROR_CODE = EDK_OK if successful
-    */
-    EDK_API int IEE_MotionDataSetBufferSizeInSec(float bufferSizeInSec);
-
-    //! Returns the size of the motion data buffer
+                - EDK_OK if successful
+     */
+    EDK_API int
+        IEE_MotionDataSetBufferSizeInSec(float bufferSizeInSec);
+    
+    
+    //! Return the size of the motion data buffer
     /*!
         \param pBufferSizeInSecOut - receives the size of the data buffer
         \return EDK_ERROR_CODE
-                - EDK_ERROR_CODE = EDK_OK if successful
-    */
-    EDK_API int IEE_MotionDataGetBufferSizeInSec(float* pBufferSizeInSecOut);
-
-    //! Gets sampling rate
+                - EDK_OK if successful
+     */
+    EDK_API int
+        IEE_MotionDataGetBufferSizeInSec(float* pBufferSizeInSecOut);
+    
+    
+    //! Get sampling rate of the motion data stream
     /*!
         \param userId - user ID
         \param samplingRateOut - receives the sampling rate
         \return EDK_ERROR_CODE
-                - EDK_ERROR_CODE = EDK_OK if the command succeeded
-    */
-    EDK_API int IEE_MotionDataGetSamplingRate(unsigned int userId,
-                                             unsigned int* samplingRateOut);
+                - EDK_OK if successful
+     */
+    EDK_API int
+        IEE_MotionDataGetSamplingRate(unsigned int userId,
+                                      unsigned int* samplingRateOut);
     
-    //! Init Bluetooth of device
+    
+    //!
+    //! The following API calls are only applicable for Mac/iOS/Android to establish BTLE connection with the headset.
+    //!
+    
+#if defined(__APPLE__)
+    
+    //! Initialize access to BTLE devices
     /*!
-         \return true if init successfully
-         */
-    EDK_API bool IEE_EmoInitDevice();
-    //! Connect Device with ID
+        \remark Available on Mac/iOS only.
+     
+        Should be called before IEE_EngineConnect.
+     
+        \return true if initialised successfully
+     */
+    EDK_API bool
+        IEE_EmoInitDevice();
+    
+#endif
+    
+#if defined(__APPLE__) || defined(__ANDROID__)
+    
+    //! Connect to a particular headset
     /*!
-         \param indexDevice  -  the order of device in list (start with 0)
-         \return true if connect successfully
-         */
-    EDK_API int IEE_EmoConnectDevice(int indexDevice);
-    //! Get Signal Strength of Device
+        \remark Available on Mac/iOS/Android only.
+     
+        \param indexDevice - the index of device in list (start with 0)
+        \return true if connected successfully
+     */
+    EDK_API int
+        IEE_EmoConnectDevice(int indexDevice);
+    
+    
+    //! Check the signal strength of current connected device
     /*!
-         \param int value
-         */
-    EDK_API void IEE_GetSignalStrengthBLEInsight(int& value);
-    //! Get Number of Device Insight Headset
+        \remark Available on Mac/iOS/Android only.
+     
+        If there are multiple headsets around, you should choose to connect to the one with strongest signal.
+     
+        \param value - -30 to 0 (weak to strong)
+     */
+    EDK_API void
+        IEE_GetSignalStrengthBLEInsight(int& value);
+    
+    
+    //! Get number of Insight headset in the list
     /*!
-         \return int
+        \remark Available on Mac/iOS/Android only.
+     
+        \return number of Insight headsets
          */
-    EDK_API int IEE_GetNumberDeviceInsight();
-    //! Get Name of  Headset in list device
+    EDK_API int
+        IEE_GetNumberDeviceInsight();
+    
+    
+    //! Return name of headset in listed devices
     /*!
-         \param int index in list device
-         \return const char* name of device
-         */
-    EDK_API const char* IEE_GetNameDeviceInsightAtIndex(int index);
+        \remark Available on Mac/iOS/Android only.
+     
+        \param index - index in list device
+        \return const char* - name of the headset
+    */
+    EDK_API const char*
+        IEE_GetNameDeviceInsightAtIndex(int index);
+    
+#endif
+    
 #ifdef __cplusplus
-};
+}
 #endif
 #endif

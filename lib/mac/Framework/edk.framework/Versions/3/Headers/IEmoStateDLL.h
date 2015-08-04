@@ -520,7 +520,16 @@ extern "C"
     */
     EMOSTATE_DLL_API float
         IS_PerformanceMetricGetInterestScore(EmoStateHandle state);
-    
+
+    //! Returns focus level of the user
+    /*!
+        \param state - EmoStateHandle
+
+        \return focus level (0.0 to 1.0)
+    */
+    EMOSTATE_DLL_API float
+        IS_PerformanceMetricGetFocusScore(EmoStateHandle state);
+
     //! Returns the detected MentalCommand action of the user
     /*!
         \param state - EmoStateHandle
@@ -718,6 +727,17 @@ extern "C"
                                                    double* rawScore,
                                                    double* minScale,
                                                    double* maxScale);
+    //! Returns Focus model parameters
+    /*!
+        \param state                - EmoStateHandle
+        \param rawScore             - return raw score
+        \param minScale, maxScale   - return scale range
+    */
+    EMOSTATE_DLL_API void
+        IS_PerformanceMetricGetFocusModelParams(EmoStateHandle state,
+                                                double* rawScore,
+                                                double* minScale,
+                                                double* maxScale);
 
 #ifdef __cplusplus
 };
