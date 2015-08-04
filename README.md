@@ -7,17 +7,26 @@ If you have questions or have knowledge to share, please visit our [forum](https
 ## Latest Release
 We are currently preparing a stable SDK for release and updating the repository with more examples. Please check out the [insight-beta-release branch](https://github.com/Emotiv/insight_sdk/tree/Insight-beta-release) for latest changes.
 
-At the moment it has:
-* Insight SDK for Win32
-* Insight SDK for Mac
-* EmoComposer for Win32
+At the moment we have:
+* Insight SDK for Win32/Mac
+* EmoComposer for Win32/Mac
 
 Coming soon:
-* Insight SDK for Win64
 * Insight SDK for Android
 * Insight SDK for iOS
-* Insight SDK for Linux
-* EmoComposer for Mac
+* Insight SDK for Ubuntu
+* Insight SDK for Win64
+
+## Supported Platforms
+* Insight with Bluetooth SMART (Bluetooth 4.0 or Bluetooth Low Energy) connection currently works with the SDK under:
+  * Windows 8 or above
+  * Mac OS X 10.10 or above (check if Bluetooth LMP Version is 0x6 from System Report)
+  * Android 4.4 or above
+
+* Insight with Emotiv Universal USB Receiver currently works with the SDK under:
+  * Windows 7 or above
+  * Mac OS X 10.8
+  * Android 4.3 or above
 
 ## Known Issues
 * IS_PerformanceMetricGetStressScore, IS_PerformanceMetricGetStressModelParams may return zero on Windows and Mac.
