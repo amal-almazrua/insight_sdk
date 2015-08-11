@@ -1,18 +1,17 @@
-# Emotiv Insight SDK
+# Emotiv Insight SDK - Community Edition
 
-Here is the repository to download the latest Emotiv SDK for Insight, along with code examples and other development tools.
+Here is the repository to download the latest Emotiv Insight SDK Community Edition, along with code examples and other development tools.
 
 If you have questions or have knowledge to share, please visit our [forum](https://emotiv.com/forum/) which is the hub for our developer community.
 
 ## Latest Release
-We are currently preparing a stable SDK for release and updating the repository with more examples. Please check out the [insight-beta-release branch](https://github.com/Emotiv/insight_sdk/tree/Insight-beta-release) for latest changes.
+We are currently preparing a stable SDK for release and updating the repository with more examples and instructions. Please check out the [insight-beta-release branch](https://github.com/Emotiv/insight_sdk/tree/Insight-beta-release) for latest changes.
 
 At the moment we have:
-* Insight SDK for Win32/Mac
-* EmoComposer for Win32/Mac
+* Insight SDK for Win32, Mac, Android
+* EmoComposer for Win32, Mac
 
 Coming soon:
-* Insight SDK for Android
 * Insight SDK for iOS
 * Insight SDK for Ubuntu
 * Insight SDK for Win64
@@ -28,29 +27,36 @@ Coming soon:
   * Mac OS X 10.8
   * Android 4.3 or above
 
-## Known Issues
-* IS_PerformanceMetricGetStressScore, IS_PerformanceMetricGetStressModelParams may return zero on Windows and Mac.
+## Connecting Your Insight
+* Windows: Turn on Bluetooth on both Insight and PC, then pair your Insight with Windows built-in Bluetooth service first
+* Mac and Android: Turn on Bluetooth on both Insight and Mac/Android device, then start Emotiv app to use (without first pairing)
 
 ## API Documentation
 The API reference can be found here:
 
 http://emotiv.com/api/insight/3.1.16/
 
+**NOTE:** APIs starting with **IEE_Data**, **IEE_Edf** and **IEE_EngineLocalConnect**, are not available in Insight SDK Community Edition. Those functions are only available in **Insight SDK Premium Edition** and can be downloaded from emotiv.com after purchasing Insight with EEG access.
+
+## Known Issues
+* IS_PerformanceMetricGetStressScore, IS_PerformanceMetricGetStressModelParams may return zero on Windows and Mac.
+
 ## Tools
 
-#### Control Panel
-If you are looking for Emotiv Control Panel, we have now made a browser version - **CPanel**.
+#### Insight Control Panel
+If you are looking for Emotiv Control Panel with EPOC before, we have now made a browser version:
 
-* For BTLE connection
-  https://cpanel.emotivinsight.com/BTLE/
+https://cpanel.emotivinsight.com/BTLE/
 
-* For USB dongle connection
-  https://cpanel.emotivinsight.com/insight/
+Compatible with Insight via BTLE or [Emotiv USB Universal Receiver](https://emotiv.com/store/product_9.html) on:
+* Windows 7+ with Firefox
+* Mac OS X 10.9+ with Safari or Chrome
 
-> **Warning: the CPanel site is under beta testing, so please be patient...**
+#### App for Android
+Please join the Emotiv Beta community https://plus.google.com/u/0/communities/111719780251099691777 to get access to our beta Android app test program, including Insight Consumer app, BrainVis and MentalCommand.
 
-#### Insight Consumer App Beta (Android)
-Please join the Emotiv Beta community https://plus.google.com/u/0/communities/111719780251099691777 to get access to the Insight Consumer App beta for Android test program.
+#### App for iOS
+We are working hard on the BTLE data transmission issues with iOS 8.3+ and will release the iOS version once it is out of the way - stay tuned!
 
 ## Support
 
