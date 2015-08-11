@@ -4,7 +4,7 @@ Here is the repository to download the latest Emotiv Insight SDK Community Editi
 
 If you have questions or have knowledge to share, please visit our [forum](https://emotiv.com/forum/) which is the hub for our developer community.
 
-# Table of Contents
+## Table of Contents
 1. [Latest Release](#latest-release)
 2. [Supported Platforms](#supported-platforms)
 3. [Connecting Your Insight](#connecting-your-insight)
