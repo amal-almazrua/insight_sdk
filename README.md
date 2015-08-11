@@ -4,6 +4,15 @@ Here is the repository to download the latest Emotiv Insight SDK Community Editi
 
 If you have questions or have knowledge to share, please visit our [forum](https://emotiv.com/forum/) which is the hub for our developer community.
 
+# Table of Contents
+1. [Latest Release](#latest-release)
+2. [Supported Platforms](#supported-platforms)
+3. [Connecting Your Insight](#connecting-your-insight)
+4. [API Documentation](#api-documentation)
+5. [Known Issues](#known-issues)
+6. [Apps and Tools](#apps-and-tools)
+7. [Support](#support)
+
 ## Latest Release
 We are currently preparing a stable SDK for release and updating the repository with more examples and instructions. Please check out the [insight-beta-release branch](https://github.com/Emotiv/insight_sdk/tree/Insight-beta-release) for latest changes.
 
@@ -41,7 +50,7 @@ http://emotiv.com/api/insight/3.1.16/
 ## Known Issues
 * IS_PerformanceMetricGetStressScore, IS_PerformanceMetricGetStressModelParams may return zero on Windows and Mac.
 
-## Tools
+## Apps and Tools
 
 #### Insight Control Panel
 If you are looking for Emotiv Control Panel with EPOC before, we have now made a browser version:
