@@ -205,7 +205,7 @@ public class EmotivBluetooth {
                     if (android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.LOLLIPOP) {
                         mBluetoothAdapter.startLeScan(device_uuid, mLeScanCallback);
                     } else {
-                        mBluetoothAdapter.getBluetoothLeScanner().stopScan(scan);
+                        mBluetoothAdapter.getBluetoothLeScanner().startScan(scan);
                     }
                 }
             } catch (NullPointerException e) {
