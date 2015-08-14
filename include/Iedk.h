@@ -84,12 +84,6 @@ extern "C"
      */
     typedef void* EmoEngineEventHandle;
 
-    //! Handle to optimization param allocated by IEE_OptimizationParamCreate.
-    /*!
-        \sa IEE_OptimizationParamCreate()
-     */
-    typedef void* OptimizationParamHandle;
-
     //! Handle to data placeholder allocated by IEE_MotionDataCreate.
     /*!
         \sa IEE_MotionDataCreate()
@@ -150,7 +144,6 @@ extern "C"
         double              zLoc;       //!< Z coordinate from center of head toward top of skull
     } IInputSensorDescriptor_t;
     
-
     //! Motion data channel description
     typedef enum IEE_MotionDataChannel_enum {
         IMD_COUNTER = 0,        //!< Sample counter
@@ -214,12 +207,11 @@ extern "C"
 
     //! Enable diagnostics mode.
     /*!
-        Controls the output of logging information from EmoEngine (which is off by default).
-        This should only be enabled if instructed to do so by Emotiv developer support for the purposes of collecting diagnostic information.
+        Controls the output of logging information from EmoEngine (disabled by default).
+        This should only be enabled if instructed to do so by Emotiv support for the purposes of collecting diagnostic information.
      
         \param szFilename - The path of the logfile
-        \param fEnable - If non-zero, then diagnostic information will be written to logfile.
-                       - If zero, then all diagnostic information is suppressed (default).
+        \param fEnable - Write diagnostic information to logfile if enabled
         \param nReserved - Reserved for future use.
 
         \return EDK_ERROR_CODE
@@ -1011,10 +1003,19 @@ extern "C"
                                     IInputSensorDescriptor_t* pDescriptorOut);
 
 
-    //! Return the current hardware version of the headset and dongle for a particular user
+    //! Return the current hardware version of the headset and dongle (if available).
     /*!
+        - 0x50XX / 0x90XX - Insight Consumer
+        - 0x08XX / 0x09XX - Insight Premium
+        - 0x30XX / 0x70XX - EPOC+ Consumer
+        - 0x06XX / 0x07XX - EPOC+ Premium
+        - 0x1000 / 0x1E00 - EPOC Consumer
+        - 0x0565          - EPOC Premium
+     
         \param userId - user ID for query
-        \param pHwVersionOut - hardware version for the user headset/dongle pair. hiword is headset version, loword is dongle version.
+        \param pHwVersionOut - hardware version for the headset/dongle pair.
+                             - Upper 2 bytes: headset version
+                             - Lower 2 bytes: dongle version.
 
         \return EDK_ERROR_CODE
                 - EDK_OK if successful
@@ -1167,8 +1168,7 @@ extern "C"
      */
     EDK_API int
         IEE_MotionDataGetBufferSizeInSec(float* pBufferSizeInSecOut);
-    
-    
+
     //! Get sampling rate of the motion data stream
     /*!
         \param userId - user ID
@@ -1180,8 +1180,9 @@ extern "C"
         IEE_MotionDataGetSamplingRate(unsigned int userId,
                                       unsigned int* samplingRateOut);
     
+    
     //!
-    //! The following API calls are only applicable for Mac/iOS/Android to establish BTLE connection with the headset.
+    //! The following API calls are only applicable for certain platforms to establish BTLE connection with the headset.
     //!
     
 #if defined(__APPLE__)
@@ -1204,7 +1205,7 @@ extern "C"
     //! Connect to a particular headset
     /*!
         \remark Available on Mac/iOS/Android only.
-
+     
         \param indexDevice - the index of device in list (start with 0)
         \return true if connected successfully
      */
@@ -1215,9 +1216,9 @@ extern "C"
     //! Check the signal strength of current connected device
     /*!
         \remark Available on Mac/iOS/Android only.
-
+     
         If there are multiple headsets around, you should choose to connect to the one with strongest signal.
-
+     
         \param value - -30 to 0 (weak to strong)
      */
     EDK_API void
@@ -1227,9 +1228,9 @@ extern "C"
     //! Get number of Insight headset in the list
     /*!
         \remark Available on Mac/iOS/Android only.
-
+     
         \return number of Insight headsets
-     */
+         */
     EDK_API int
         IEE_GetNumberDeviceInsight();
     
@@ -1237,10 +1238,10 @@ extern "C"
     //! Return name of headset in listed devices
     /*!
         \remark Available on Mac/iOS/Android only.
-
+     
         \param index - index in list device
         \return const char* - name of the headset
-     */
+    */
     EDK_API const char*
         IEE_GetNameDeviceInsightAtIndex(int index);
     
@@ -1249,4 +1250,4 @@ extern "C"
 #ifdef __cplusplus
 }
 #endif
-#endif
+#endif // IEDK_H
