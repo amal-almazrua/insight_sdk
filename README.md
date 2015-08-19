@@ -43,7 +43,7 @@ Coming soon:
 ## API Documentation
 The API reference can be found here:
 
-http://emotiv.com/api/insight/3.1.16/
+http://emotiv.com/api/insight/3.1.17/
 
 **NOTE:** APIs starting with **IEE_Data**, **IEE_Edf** and **IEE_EngineLocalConnect**, are not available in Insight SDK Community Edition. Those functions are only available in **Insight SDK Premium Edition** and can be downloaded from emotiv.com after purchasing Insight with EEG access.
 
