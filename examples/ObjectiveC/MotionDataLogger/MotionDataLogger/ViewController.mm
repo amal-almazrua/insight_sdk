@@ -89,6 +89,7 @@ NSMutableData *data;
         {
             NSLog(@"User Removed");
             self.labelStatus.stringValue = @"Disconnected";
+            readytocollect = FALSE;
         }
         else if (eventType == IEE_EmoStateUpdated)
         {

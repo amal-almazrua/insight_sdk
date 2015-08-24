@@ -149,7 +149,7 @@ extern "C"
         double              yLoc;       //!< Y coordinate from center of head towards ears
         double              zLoc;       //!< Z coordinate from center of head toward top of skull
     } IInputSensorDescriptor_t;
-
+    
     //! Motion data channel description
     typedef enum IEE_MotionDataChannel_enum {
         IMD_COUNTER = 0,        //!< Sample counter
