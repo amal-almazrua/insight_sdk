@@ -17,11 +17,10 @@ If you have questions or have knowledge to share, please visit our [forum](https
 We are currently preparing a stable SDK for release and updating the repository with more examples and instructions. Please check out the [insight-beta-release branch](https://github.com/Emotiv/insight_sdk/tree/Insight-beta-release) for latest changes.
 
 At the moment we have:
-* Insight SDK for Win32, Mac, Android
+* Insight SDK for Win32, Mac, Android, iOS
 * EmoComposer for Win32, Mac
 
 Coming soon:
-* Insight SDK for iOS
 * Insight SDK for Ubuntu
 * Insight SDK for Win64
 
