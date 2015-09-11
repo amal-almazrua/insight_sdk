@@ -1,7 +1,7 @@
 /****************************************************************************
 **
 ** Copyright 2015 by Emotiv. All rights reserved
-** Example 8 - Multi Dongle EEGLogger
+** Example - Multi Dongle EEGLogger
 ** This sample is to get synchronized eeg data from two headsets.
 ** The data is only written to files as two headsets are in the good condition
 ** ( without noise, full of battery, ... )

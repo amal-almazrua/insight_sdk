@@ -112,12 +112,11 @@ extern "C"
     typedef enum IEE_InputChannels_enum {
         
         IEE_CHAN_CMS = 0,
-        IEE_CHAN_DRL = 0,
-        IEE_CHAN_AF3 = 3,
-        IEE_CHAN_T7  = 7,
-        IEE_CHAN_Pz  = 9,
-        IEE_CHAN_T8  = 12,
-        IEE_CHAN_AF4 = 16
+        IEE_CHAN_AF3,
+        IEE_CHAN_T7,
+        IEE_CHAN_Pz,
+        IEE_CHAN_T8,
+        IEE_CHAN_AF4
         
     } IEE_InputChannels_t;
 
@@ -217,7 +216,7 @@ extern "C"
     */
     EMOSTATE_DLL_API IEE_EEG_ContactQuality_t
         IS_GetContactQuality(EmoStateHandle state,
-                             int electroIdx);
+                             IEE_InputChannels_t electroIdx);
 
     //! Query the contact quality of all the electrodes in one single call
     /*!

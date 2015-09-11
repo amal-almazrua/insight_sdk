@@ -1,7 +1,7 @@
 /****************************************************************************
 **
 ** Copyright 2015 by Emotiv. All rights reserved
-** Example 10 - PerformanceMetric Demo
+** Example - PerformanceMetric Demo
 ** This example receives the PerformanceMetric scores
 ** then calculates the scaled scores
 ** and writes them to the data file( .csv file ...ie)

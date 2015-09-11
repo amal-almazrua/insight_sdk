@@ -2,7 +2,7 @@
 **
 ** Copyright 2015 by Emotiv. All rights reserved
 **
-** Example 9 - IEmoState And IEEG Logger
+** Example - IEmoState And IEEG Logger
 ** This example logs both log IEEG Data and PerformanceMetric Data
 ** from EmoEngine/EmoComposer at the same time
 ** Data will be logged in two output files : PerformanceMetric_Data.csv and
