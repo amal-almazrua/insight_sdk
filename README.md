@@ -26,6 +26,8 @@ Coming soon:
 ## Supported Platforms
 * Insight with Bluetooth SMART (Bluetooth 4.0 or Bluetooth Low Energy) connection currently works with the SDK under:
   * Windows 8 or above
+  * Windows XP/7, only with Bluetooth adaptor that uses Broadcom BCM20702 chipset
+     (recommended one: Plugable USB 2.0 Bluetooth Adapter, http://plugable.com/products/usb-bt4le)
   * Mac OS X 10.10 or above (check if Bluetooth LMP Version is 0x6 from System Report)
   * Android 4.4 or above
 
