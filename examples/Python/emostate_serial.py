@@ -2,6 +2,7 @@ import sys
 import os
 import time
 import ctypes
+import serial
 
 from ctypes import *
 
@@ -97,16 +98,10 @@ IS_MentalCommandGetCurrentActionPower.argtypes = [c_void_p]
 # -------------------------------------------------------------------------
 
 def logEmoState(userID, eState):
-    print >>f, IS_GetTimeFromStart(eState), ",",
-    print >>f, userID.value, ",",
-    print >>f, IS_GetWirelessSignalStatus(eState), ",",
-    print >>f, IS_FacialExpressionIsBlink(eState), ",",
-    print >>f, IS_FacialExpressionIsLeftWink(eState), ",",
-    print >>f, IS_FacialExpressionIsRightWink(eState), ",",
 
     FacialExpressionStates = {}
     FacialExpressionStates[FE_FROWN] = 0
-    FacialExpressionStates[FE_SUPPRISE] = 0
+    FacialExpressionStates[FE_SURPRISE] = 0
     FacialExpressionStates[FE_SMILE] = 0
     FacialExpressionStates[FE_CLENCH] = 0
 
@@ -117,21 +112,30 @@ def logEmoState(userID, eState):
     FacialExpressionStates[upperFaceAction] = upperFacePower
     FacialExpressionStates[lowerFaceAction] = lowerFacePower
 
-    print >>f, FacialExpressionStates[FE_SUPPRISE], ",",
-    print >>f, FacialExpressionStates[FE_FROWN], ",",
-    print >>f, FacialExpressionStates[FE_SMILE], ",",
-    print >>f, FacialExpressionStates[FE_CLENCH], ",",
+    emoStateDict['Time'] = IS_GetTimeFromStart(eState)
+    emoStateDict['UserID'] = userID.value
+    emoStateDict['Wireless Signal Status'] = IS_GetWirelessSignalStatus(eState)
+    emoStateDict['Blink'] = IS_FacialExpressionIsBlink(eState)
+    emoStateDict['Wink Left'] = IS_FacialExpressionIsLeftWink(eState)
+    emoStateDict['Wink Right'] = IS_FacialExpressionIsRightWink(eState)
+    emoStateDict['Surprise'] = FacialExpressionStates[FE_SURPRISE]
+    emoStateDict['Frown'] = FacialExpressionStates[FE_FROWN]
+    emoStateDict['Clench'] = FacialExpressionStates[FE_CLENCH]
+    emoStateDict['Smile'] = FacialExpressionStates[FE_SMILE]
+    emoStateDict['Longterm Excitement'] = \
+        IS_PerformanceMetricGetExcitementLongTermScore(eState)
+    emoStateDict['Shortterm Excitement'] = \
+        IS_PerformanceMetricGetInstantaneousExcitementTermScore(eState)
+    emoStateDict['Boredom'] = \
+        IS_PerformanceMetricGetEngagementBoredomScore(eState)
+    emoStateDict['MentalCommand Action'] = \
+        IS_MentalCommandGetCurrentAction(eState)
+    emoStateDict['MentalCommand Power'] = \
+        IS_MentalCommandGetCurrentActionPower(eState)
 
-    # Performance Metric results
-    print >>f, IS_PerformanceMetricGetExcitementLongTermScore(eState), ",",
-    print >>f, IS_PerformanceMetricGetExcitementLongTermScore(eState), ",",
+    ser.write(emoStateDict)
 
-    print >>f, IS_PerformanceMetricGetEngagementBoredomScore(eState), ",",
 
-    # MentalCommand Suite results
-    print >>f, IS_MentalCommandGetCurrentAction(eState), ",",
-    print >>f, IS_MentalCommandGetCurrentActionPower(eState)
-    print >>f, '\n'
 # -------------------------------------------------------------------------
 
 userID = c_uint(0)
@@ -141,7 +145,7 @@ timestamp = c_float(0.0)
 option = c_int(0)
 state = c_int(0)
 
-FE_SUPPRISE = 0x0020
+FE_SURPRISE = 0x0020
 FE_FROWN = 0x0040
 FE_SMILE = 0x0080
 FE_CLENCH = 0x0100
@@ -149,10 +153,25 @@ FE_CLENCH = 0x0100
 
 # -------------------------------------------------------------------------
 header = ['Time', 'UserID', 'Wireless Signal Status', 'Blink', 'Wink Left',
-          'Wink Right', 'Look Left', 'Look Right', 'Eyebrow', 'Furrow',
-          'Smile', 'Clench', 'Smirk Left', 'Smirk Right', 'Laugh',
-          'Short Term Excitement', 'Long Term Excitement',
-          'Engagement/Boredom', 'MentalCommand Action', 'MentalCommand Power']
+          'Wink Right', 'Surprise', 'Frown',
+          'Smile', 'Clench',
+          'Shortterm Excitement', 'Longterm Excitement',
+          'Boredom', 'MentalCommand Action', 'MentalCommand Power']
+
+
+emoStateDict = {}
+for emoState in header:
+    emoStateDict.setdefault(emoState, None)
+
+print "Please enter port for Arduino"
+print "Example:"
+print "Mac -- \n /dev/tty.usbmodem1451 "
+print "Windows -- \n COM4"
+arduino_port = str(raw_input())
+
+ser = serial.Serial(arduino_port, 9600)
+time.sleep(2)
+
 
 input = ''
 print "==================================================================="
