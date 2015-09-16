@@ -3,12 +3,13 @@ import os
 import time
 import ctypes
 import serial
+import json
 
 from ctypes import *
 
 try:
     if sys.platform.startswith('win32'):
-        libEDK = cdll.LoadLibrary("edk.dll")
+        libEDK = cdll.LoadLibrary("InsightEDK.dll")
     if sys.platform.startswith('linux'):
         srcDir = os.getcwd()
         libPath = srcDir + "/libedk.so.1.0.0"
@@ -114,17 +115,17 @@ def logEmoState(userID, eState):
 
     emoStateDict['Time'] = IS_GetTimeFromStart(eState)
     emoStateDict['UserID'] = userID.value
-    emoStateDict['Wireless Signal Status'] = IS_GetWirelessSignalStatus(eState)
+    emoStateDict['wirelessSigStatus'] = IS_GetWirelessSignalStatus(eState)
     emoStateDict['Blink'] = IS_FacialExpressionIsBlink(eState)
-    emoStateDict['Wink Left'] = IS_FacialExpressionIsLeftWink(eState)
-    emoStateDict['Wink Right'] = IS_FacialExpressionIsRightWink(eState)
+    emoStateDict['leftWink'] = IS_FacialExpressionIsLeftWink(eState)
+    emoStateDict['rightWink'] = IS_FacialExpressionIsRightWink(eState)
     emoStateDict['Surprise'] = FacialExpressionStates[FE_SURPRISE]
     emoStateDict['Frown'] = FacialExpressionStates[FE_FROWN]
     emoStateDict['Clench'] = FacialExpressionStates[FE_CLENCH]
     emoStateDict['Smile'] = FacialExpressionStates[FE_SMILE]
-    emoStateDict['Longterm Excitement'] = \
+    emoStateDict['longExcitement'] = \
         IS_PerformanceMetricGetExcitementLongTermScore(eState)
-    emoStateDict['Shortterm Excitement'] = \
+    emoStateDict['shortExcitement'] = \
         IS_PerformanceMetricGetInstantaneousExcitementTermScore(eState)
     emoStateDict['Boredom'] = \
         IS_PerformanceMetricGetEngagementBoredomScore(eState)
@@ -132,8 +133,20 @@ def logEmoState(userID, eState):
         IS_MentalCommandGetCurrentAction(eState)
     emoStateDict['MentalCommand Power'] = \
         IS_MentalCommandGetCurrentActionPower(eState)
-
-    ser.write(emoStateDict)
+    emoStateJSON=json.dumps(emoStateDict)
+    #print emoStateDict
+    emoStateTuple = (emoStateDict['Time'], emoStateDict['UserID'],
+    emoStateDict['wirelessSigStatus'], emoStateDict['Blink'],
+    emoStateDict['leftWink'], emoStateDict['rightWink'],
+    emoStateDict['Surprise'], emoStateDict['Frown'],
+    emoStateDict['Clench'], emoStateDict['Smile'],
+    emoStateDict['longExcitement'], emoStateDict['shortExcitement'],
+    emoStateDict['Boredom'], emoStateDict['MentalCommand Action'],
+    emoStateDict['MentalCommand Power'])
+    print emoStateTuple
+    ser.write(str(emoStateTuple))
+    time.sleep(1)
+    print ser.readline()
 
 
 # -------------------------------------------------------------------------
@@ -152,10 +165,10 @@ FE_CLENCH = 0x0100
 
 
 # -------------------------------------------------------------------------
-header = ['Time', 'UserID', 'Wireless Signal Status', 'Blink', 'Wink Left',
-          'Wink Right', 'Surprise', 'Frown',
+header = ['Time', 'UserID', 'wirelessSigStatus', 'Blink', 'leftWink',
+          'rightWink', 'Surprise', 'Frown',
           'Smile', 'Clench',
-          'Shortterm Excitement', 'Longterm Excitement',
+          'shortExcitement', 'longExcitement',
           'Boredom', 'MentalCommand Action', 'MentalCommand Power']
 
 
@@ -196,9 +209,7 @@ else:
     print "option = ?"
 
 print "Start receiving Emostate! Press any key to stop logging...\n"
-f = file('ES.csv', 'w')
-f = open('ES.csv', 'w')
-print >> f, header
+
 
 while (1):
     state = libEDK.IEE_EngineGetNextEvent(eEvent)
