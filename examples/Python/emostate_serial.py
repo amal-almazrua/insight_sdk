@@ -2,8 +2,7 @@ import sys
 import os
 import time
 import ctypes
-import serial
-import json
+from arduinoCom import *
 
 from ctypes import *
 
@@ -133,20 +132,20 @@ def logEmoState(userID, eState):
         IS_MentalCommandGetCurrentAction(eState)
     emoStateDict['MentalCommand Power'] = \
         IS_MentalCommandGetCurrentActionPower(eState)
-    emoStateJSON=json.dumps(emoStateDict)
-    #print emoStateDict
+
+    # print emoStateDict
     emoStateTuple = (emoStateDict['Time'], emoStateDict['UserID'],
-    emoStateDict['wirelessSigStatus'], emoStateDict['Blink'],
-    emoStateDict['leftWink'], emoStateDict['rightWink'],
-    emoStateDict['Surprise'], emoStateDict['Frown'],
-    emoStateDict['Clench'], emoStateDict['Smile'],
-    emoStateDict['longExcitement'], emoStateDict['shortExcitement'],
-    emoStateDict['Boredom'], emoStateDict['MentalCommand Action'],
-    emoStateDict['MentalCommand Power'])
-    print emoStateTuple
-    ser.write(str(emoStateTuple))
-    time.sleep(1)
-    print ser.readline()
+                     emoStateDict['wirelessSigStatus'], emoStateDict['Blink'],
+                     emoStateDict['leftWink'], emoStateDict['rightWink'],
+                     emoStateDict['Surprise'], emoStateDict['Frown'],
+                     emoStateDict['Clench'], emoStateDict['Smile'],
+                     emoStateDict['longExcitement'], emoStateDict[
+                         'shortExcitement'],
+                     emoStateDict['Boredom'], emoStateDict[
+                         'MentalCommand Action'],
+                     emoStateDict['MentalCommand Power'])
+
+    return emoStateTuple
 
 
 # -------------------------------------------------------------------------
@@ -165,16 +164,22 @@ FE_CLENCH = 0x0100
 
 
 # -------------------------------------------------------------------------
-header = ['Time', 'UserID', 'wirelessSigStatus', 'Blink', 'leftWink',
-          'rightWink', 'Surprise', 'Frown',
-          'Smile', 'Clench',
-          'shortExcitement', 'longExcitement',
-          'Boredom', 'MentalCommand Action', 'MentalCommand Power']
+
+def emoStateDict():
+    header = ['Time', 'UserID', 'wirelessSigStatus', 'Blink', 'leftWink',
+              'rightWink', 'Surprise', 'Frown',
+              'Smile', 'Clench',
+              'shortExcitement', 'longExcitement',
+              'Boredom', 'MentalCommand Action', 'MentalCommand Power']
+    emoStateDict = {}
+    for emoState in header:
+        emoStateDict.setdefault(emoState, None)
+    return emoStateDict
 
 
-emoStateDict = {}
-for emoState in header:
-    emoStateDict.setdefault(emoState, None)
+# -----------------------------------------------------------------------
+
+# connect to Arduino
 
 print "Please enter port for Arduino"
 print "Example:"
@@ -182,11 +187,11 @@ print "Mac -- \n /dev/tty.usbmodem1451 "
 print "Windows -- \n COM4"
 arduino_port = str(raw_input())
 
-ser = serial.Serial(arduino_port, 9600)
-time.sleep(2)
+setupSerial(arduino_port)
 
+# -----------------------------------------------------------------------
+# start EmoEngine or EmoComposer
 
-input = ''
 print "==================================================================="
 print "Example to show how to log EmoState from EmoEngine/EmoComposer."
 print "==================================================================="
@@ -221,7 +226,7 @@ while (1):
             timestamp = IS_GetTimeFromStart(eState)
             print "%10.3f New EmoState from user %d ...\r" % (timestamp,
                                                               userID.value)
-            logEmoState(userID, eState)
+            valToArduino(logEmoState(userID, eState))
     elif state != 0x0600:
         print "Internal error in Emotiv Engine ! "
     time.sleep(1)
