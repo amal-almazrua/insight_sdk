@@ -5,9 +5,9 @@
 byte newServoPos = servoMin;
 byte newServoPos1 = servoMin;
 
-const byte numLEDs = 2;
-byte ledPin[numLEDs] = {12, 13};
-byte ledStatus[numLEDs] = {0, 0};
+const byte numLEDs = 15;
+byte ledPin[1] =  {13};
+byte emoStatus[numLEDs] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 
 const byte buffSize = 40;
 char inputBuffer[buffSize];
@@ -96,16 +96,50 @@ void parseData() {
   Serial.println(inputBuffer);
 
   strtokIndx = strtok(inputBuffer,","); // get the first part
-  ledStatus[0] = atof(strtokIndx); //  convert to an integer
+  emoStatus[0] = atof(strtokIndx); //  convert to an integer
 
   strtokIndx = strtok(NULL, ","); // this continues where the previous call left off
-  ledStatus[1] = atof(strtokIndx);
+  emoStatus[1] = atof(strtokIndx);
 
-  strtokIndx = strtok(NULL, ",");
-  newServoPos = atof(strtokIndx);
+  strtokIndx = strtok(NULL, ","); // this continues where the previous call left off
+  emoStatus[2] = atof(strtokIndx);
 
-  strtokIndx = strtok(NULL, ",");
-  newServoPos1 = atof(strtokIndx);
+  strtokIndx = strtok(NULL, ","); // this continues where the previous call left off
+  emoStatus[3] = atof(strtokIndx);
+
+  strtokIndx = strtok(NULL, ","); // this continues where the previous call left off
+  emoStatus[4] = atof(strtokIndx);
+
+  strtokIndx = strtok(NULL, ","); // this continues where the previous call left off
+  emoStatus[5] = atof(strtokIndx);
+
+  strtokIndx = strtok(NULL, ","); // this continues where the previous call left off
+  emoStatus[6] = atof(strtokIndx);
+
+  strtokIndx = strtok(NULL, ","); // this continues where the previous call left off
+  emoStatus[7] = atof(strtokIndx);
+
+  strtokIndx = strtok(NULL, ","); // this continues where the previous call left off
+  emoStatus[8] = atof(strtokIndx);
+
+  strtokIndx = strtok(NULL, ","); // this continues where the previous call left off
+  emoStatus[9] = atof(strtokIndx);
+
+  strtokIndx = strtok(NULL, ","); // this continues where the previous call left off
+  emoStatus[10] = atof(strtokIndx);
+
+  strtokIndx = strtok(NULL, ","); // this continues where the previous call left off
+  emoStatus[11] = atof(strtokIndx);
+
+  strtokIndx = strtok(NULL, ","); // this continues where the previous call left off
+  emoStatus[12] = atof(strtokIndx);
+
+  strtokIndx = strtok(NULL, ","); // this continues where the previous call left off
+  emoStatus[13] = atof(strtokIndx);
+
+  strtokIndx = strtok(NULL, ","); // this continues where the previous call left off
+  emoStatus[14] = atof(strtokIndx);
+
 
 }
 
@@ -115,15 +149,36 @@ void replyToPC() {
 
   if (newDataFromPC) {
     newDataFromPC = false;
-    Serial.print("<LedA ");
-    Serial.print(ledStatus[0]);
-    Serial.print(" LedB ");
-    Serial.print(ledStatus[1]);
-    Serial.print(" SrvPos ");
-    Serial.print(newServoPos);
-    Serial.print(newServoPos);
-    Serial.print(" Time ");
-    Serial.print(curMillis >> 9); // divide by 512 is approx = half-seconds
+    Serial.print("<Time ");
+    Serial.print(emoStatus[0]);
+    Serial.print(" UserID ");
+    Serial.print(emoStatus[1]);
+    Serial.print(" wirelessSigStatus ");
+    Serial.print(emoSTatus[2]);
+    Serial.print(" Blink ");
+    Serial.print(emoStatus[3]);
+    Serial.print(" leftWink ");
+    Serial.print(emoStatus[4]);
+    Serial.print(" rightWink ");
+    Serial.print(emoStatus[5]);
+    Serial.print(" Surprise ");
+    Serial.print(emoStatus[6]);
+    Serial.print(" Frown ");
+    Serial.print(emoStatus[7]);
+    Serial.print(" Clench ");
+    Serial.print(emoStatus[8]);
+    Serial.print(" Smile ");
+    Serial.print(emoStatus[9]);
+    Serial.print(" longExcitement ");
+    Serial.print(emoStatus[10]);
+    Serial.print(" shortExcitement ");
+    Serial.print(emoStatus[11]);
+    Serial.print(" Boredom ");
+    Serial.print(emoStatus[12]);
+    Serial.print(" MentalCommand Action ");
+    Serial.print(emoStatus[13]);
+    Serial.print(" MentalCommand Power ");
+    Serial.print(emoStatus[14]);
     Serial.println(">");
   }
 }
