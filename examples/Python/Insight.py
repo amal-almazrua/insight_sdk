@@ -4,7 +4,6 @@ import json
 import time
 import ctypes
 
-insight = Insight(composerConnect=True)
 
 
 class Insight(object):
@@ -12,8 +11,8 @@ class Insight(object):
     def __init__(self, composerConnect=False, composerPort=1726, userID=0):
         self.composerConnect = composerConnect
         self.composerPort = composerPort
-        self.userID - ctypes.c_uint(0)
-        self.user = ctypes.pointer(userID)
+        self.userID = ctypes.c_uint(userID)
+        self.user = ctypes.pointer(self.userID)
         try:
             if sys.platform.startswith('win32'):
                 self.libEDK = ctypes.cdll.LoadLibrary("InsightEDK.dll")
@@ -32,6 +31,11 @@ class Insight(object):
         IEE_EmoStateCreate.restype = ctypes.c_void_p
         self.eState = IEE_EmoStateCreate()
 
+    def disconnect(self):
+        self.libEDK.IEE_EngineDisconnect()
+        self.libEDK.IEE_EmoStateFree(eState)
+        self.libEDK.IEE_EmoEngineEventFree(eEvent)
+
     def connect(self):
         if self.composerConnect:
             self.libEDK.IEE_EngineRemoteConnect("127.0.0.1", self.composerPort)
@@ -44,15 +48,6 @@ class Insight(object):
     def get_event_type(self, eEvent):
         return self.libEDK.IEE_EmoEngineEventGetType(eEvent)
 
-    def get_userID(self, eEvent, user):
-        return self.libEDK.IEE_EmoEngineEventGetUserId(eEvent, user)
-
-    def get_insight_time_from_start(self, eState):
-        IS_GetTimeFromStart = self.libEDK.IS_GetTimeFromStart
-        IS_GetTimeFromStart.argtypes = [ctypes.ctypes.c_void_p]
-        IS_GetTimeFromStart.restype = ctypes.c_float
-        return IS_GetTimeFromStart(eState)
-
     def get_engine_event_emo_state(self, eEvent, eState):
         IEE_EmoEngineEventGetEmoState = \
             self.libEDK.IEE_EmoEngineEventGetEmoState
@@ -60,6 +55,15 @@ class Insight(object):
             ctypes.c_void_p, ctypes.c_void_p]
         IEE_EmoEngineEventGetEmoState.restype = ctypes.c_int
         return IEE_EmoEngineEventGetEmoState(eEvent, eState)
+
+    def get_userID(self, eEvent, user):
+        return self.libEDK.IEE_EmoEngineEventGetUserId(eEvent, user)
+
+    def get_insight_time_from_start(self, eState):
+        IS_GetTimeFromStart = self.libEDK.IS_GetTimeFromStart
+        IS_GetTimeFromStart.argtypes = [ctypes.c_void_p]
+        IS_GetTimeFromStart.restype = ctypes.c_float
+        return IS_GetTimeFromStart(eState)
 
     def get_wireless_signal_status(self, eState):
         IS_GetWirelessSignalStatus = self.libEDK.IS_GetWirelessSignalStatus
