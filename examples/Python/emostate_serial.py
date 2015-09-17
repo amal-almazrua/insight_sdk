@@ -144,8 +144,8 @@ def logEmoState(userID, eState):
                      emoStateDict['Boredom'], emoStateDict[
                          'MentalCommand Action'],
                      emoStateDict['MentalCommand Power'])
-
-    return emoStateTuple
+    # print emoStateTuple
+    return valToArduino(emoStateTuple)
 
 
 # -------------------------------------------------------------------------
@@ -165,16 +165,16 @@ FE_CLENCH = 0x0100
 
 # -------------------------------------------------------------------------
 
-def emoStateDict():
-    header = ['Time', 'UserID', 'wirelessSigStatus', 'Blink', 'leftWink',
-              'rightWink', 'Surprise', 'Frown',
-              'Smile', 'Clench',
-              'shortExcitement', 'longExcitement',
-              'Boredom', 'MentalCommand Action', 'MentalCommand Power']
-    emoStateDict = {}
-    for emoState in header:
-        emoStateDict.setdefault(emoState, None)
-    return emoStateDict
+
+header = ['Time', 'UserID', 'wirelessSigStatus', 'Blink', 'leftWink',
+          'rightWink', 'Surprise', 'Frown',
+          'Smile', 'Clench',
+          'shortExcitement', 'longExcitement',
+          'Boredom', 'MentalCommand Action', 'MentalCommand Power']
+emoStateDict = {}
+for emoState in header:
+    emoStateDict.setdefault(emoState, None)
+
 
 
 # -----------------------------------------------------------------------
@@ -226,7 +226,9 @@ while (1):
             timestamp = IS_GetTimeFromStart(eState)
             print "%10.3f New EmoState from user %d ...\r" % (timestamp,
                                                               userID.value)
-            valToArduino(logEmoState(userID, eState))
+            logEmoState(userID, eState)
+            x = recvFromArduino(1)
+            print x
     elif state != 0x0600:
         print "Internal error in Emotiv Engine ! "
     time.sleep(1)

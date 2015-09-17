@@ -8,8 +8,7 @@ endMarker = 62
 
 
 def valToArduino(emoStateTuple):
-    sendStr = "%s,%s,%s, %s, %s,%s,%s, \
-            %s, %s,%s,%s, %s, %s,%s,%s" % emoStateTuple
+    sendStr = "%s,%s,%s, %s, %s,%s,%s, %s, %s,%s,%s, %s, %s,%s,%s" % emoStateTuple
     print "SENDSTR %s" % (sendStr)
     sendToArduino(sendStr)
 

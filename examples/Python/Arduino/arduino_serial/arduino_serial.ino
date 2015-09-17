@@ -2,14 +2,28 @@
 
 
 
-byte newServoPos = servoMin;
-byte newServoPos1 = servoMin;
 
-const byte numLEDs = 15;
+
+const byte numStatus = 15;
 byte ledPin[1] =  {13};
-byte emoStatus[numLEDs] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+// Values sent over serial to Arduino.
+float time;
+float userID;
+float wirelessSigStatus;
+float Blink;
+float leftWink;
+float rightWink;
+float surprise = 0.0;
+float frown;
+float clench;
+float smile;
+float longExcitement;
+float shortExcitement;
+float boredom;
+float mentalCommandAction;
+float mentalCommandPower;
 
-const byte buffSize = 40;
+const byte buffSize = 132;
 char inputBuffer[buffSize];
 const char startMarker = '<';
 const char endMarker = '>';
@@ -23,6 +37,7 @@ unsigned long curMillis;
 
 unsigned long prevReplyToPCmillis = 0;
 unsigned long replyToPCinterval = 1000;
+int blink_rate = 0;
 
 //=============
 
@@ -30,13 +45,13 @@ void setup() {
   Serial.begin(9600);
 
     // flash LEDs so we know we are alive
-  for (byte n = 0; n < numLEDs; n++) {
+  for (byte n = 0; n < numStatus; n++) {
      pinMode(ledPin[n], OUTPUT);
      digitalWrite(ledPin[n], HIGH);
   }
   delay(500); // delay() is OK in setup as it only happens once
 
-  for (byte n = 0; n < numLEDs; n++) {
+  for (byte n = 0; n < numStatus; n++) {
      digitalWrite(ledPin[n], LOW);
   }
     // tell the PC we are ready
@@ -48,6 +63,8 @@ void setup() {
 void loop() {
   curMillis = millis();
   getDataFromPC();
+  replyToPC();
+  blinkLEDs();
 
 }
 
@@ -93,52 +110,53 @@ void parseData() {
     // assumes the data will be received as (eg) 0,1,35
 
   char * strtokIndx; // this is used by strtok() as an index
-  Serial.println(inputBuffer);
+  //Serial.println('hello');
+  //Serial.println(inputBuffer);
 
   strtokIndx = strtok(inputBuffer,","); // get the first part
-  emoStatus[0] = atof(strtokIndx); //  convert to an integer
+  time = atof(strtokIndx); //  convert to an integer
 
   strtokIndx = strtok(NULL, ","); // this continues where the previous call left off
-  emoStatus[1] = atof(strtokIndx);
+  userID = atof(strtokIndx);
 
   strtokIndx = strtok(NULL, ","); // this continues where the previous call left off
-  emoStatus[2] = atof(strtokIndx);
+  wirelessSigStatus = atof(strtokIndx);
 
   strtokIndx = strtok(NULL, ","); // this continues where the previous call left off
-  emoStatus[3] = atof(strtokIndx);
+  Blink = atof(strtokIndx);
 
   strtokIndx = strtok(NULL, ","); // this continues where the previous call left off
-  emoStatus[4] = atof(strtokIndx);
+  leftWink = atof(strtokIndx);
 
   strtokIndx = strtok(NULL, ","); // this continues where the previous call left off
-  emoStatus[5] = atof(strtokIndx);
+  rightWink = atof(strtokIndx);
 
   strtokIndx = strtok(NULL, ","); // this continues where the previous call left off
-  emoStatus[6] = atof(strtokIndx);
+  surprise = atof(strtokIndx);
 
   strtokIndx = strtok(NULL, ","); // this continues where the previous call left off
-  emoStatus[7] = atof(strtokIndx);
+  frown = atof(strtokIndx);
 
   strtokIndx = strtok(NULL, ","); // this continues where the previous call left off
-  emoStatus[8] = atof(strtokIndx);
+  clench = atof(strtokIndx);
 
   strtokIndx = strtok(NULL, ","); // this continues where the previous call left off
-  emoStatus[9] = atof(strtokIndx);
+  smile = atof(strtokIndx);
 
   strtokIndx = strtok(NULL, ","); // this continues where the previous call left off
-  emoStatus[10] = atof(strtokIndx);
+  longExcitement = atof(strtokIndx);
 
   strtokIndx = strtok(NULL, ","); // this continues where the previous call left off
-  emoStatus[11] = atof(strtokIndx);
+  shortExcitement = atof(strtokIndx);
 
   strtokIndx = strtok(NULL, ","); // this continues where the previous call left off
-  emoStatus[12] = atof(strtokIndx);
+  boredom = atof(strtokIndx);
 
   strtokIndx = strtok(NULL, ","); // this continues where the previous call left off
-  emoStatus[13] = atof(strtokIndx);
+  mentalCommandAction = atof(strtokIndx);
 
   strtokIndx = strtok(NULL, ","); // this continues where the previous call left off
-  emoStatus[14] = atof(strtokIndx);
+  mentalCommandPower = atof(strtokIndx);
 
 
 }
@@ -150,35 +168,51 @@ void replyToPC() {
   if (newDataFromPC) {
     newDataFromPC = false;
     Serial.print("<Time ");
-    Serial.print(emoStatus[0]);
+    Serial.print(time);
     Serial.print(" UserID ");
-    Serial.print(emoStatus[1]);
+    Serial.print(userID);
     Serial.print(" wirelessSigStatus ");
-    Serial.print(emoSTatus[2]);
+    Serial.print(wirelessSigStatus);
     Serial.print(" Blink ");
-    Serial.print(emoStatus[3]);
+    Serial.print(Blink);
     Serial.print(" leftWink ");
-    Serial.print(emoStatus[4]);
+    Serial.print(leftWink);
     Serial.print(" rightWink ");
-    Serial.print(emoStatus[5]);
+    Serial.print(rightWink);
     Serial.print(" Surprise ");
-    Serial.print(emoStatus[6]);
+    Serial.print(surprise);
     Serial.print(" Frown ");
-    Serial.print(emoStatus[7]);
+    Serial.print(frown);
     Serial.print(" Clench ");
-    Serial.print(emoStatus[8]);
+    Serial.print(clench);
     Serial.print(" Smile ");
-    Serial.print(emoStatus[9]);
+    Serial.print(smile);
     Serial.print(" longExcitement ");
-    Serial.print(emoStatus[10]);
+    Serial.print(longExcitement);
     Serial.print(" shortExcitement ");
-    Serial.print(emoStatus[11]);
+    Serial.print(shortExcitement);
     Serial.print(" Boredom ");
-    Serial.print(emoStatus[12]);
+    Serial.print(boredom);
     Serial.print(" MentalCommand Action ");
-    Serial.print(emoStatus[13]);
+    Serial.print(mentalCommandAction);
     Serial.print(" MentalCommand Power ");
-    Serial.print(emoStatus[14]);
+    Serial.print(mentalCommandPower);
     Serial.println(">");
   }
+}
+
+void blinkLEDs() {
+  if (Blink == 1) {
+    blink_rate = 100;
+    digitalWrite(ledPin[0], HIGH);
+    delay(blink_rate);
+    digitalWrite(ledPin[0], LOW);
+    delay(blink_rate);
+  }
+  blink_rate = Blink * 100;
+  digitalWrite(ledPin[0], HIGH);
+  delay(blink_rate);
+  digitalWrite(ledPin[0], LOW);
+  delay(blink_rate);
+
 }
