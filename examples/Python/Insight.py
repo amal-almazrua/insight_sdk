@@ -59,7 +59,7 @@ class Insight(object):
     def get_userID(self, eEvent, user):
         return self.libEDK.IEE_EmoEngineEventGetUserId(eEvent, user)
 
-    def get_insight_time_from_start(self, eState):
+    def get_time_from_start(self, eState):
         IS_GetTimeFromStart = self.libEDK.IS_GetTimeFromStart
         IS_GetTimeFromStart.argtypes = [ctypes.c_void_p]
         IS_GetTimeFromStart.restype = ctypes.c_float
