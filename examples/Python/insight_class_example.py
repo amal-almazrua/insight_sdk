@@ -18,19 +18,6 @@ for emoState in header:
 
 def logEmoState():
 
-    # FacialExpressionStates = {}
-    # FacialExpressionStates[FE_FROWN] = 0
-    # FacialExpressionStates[FE_SURPRISE] = 0
-    # FacialExpressionStates[FE_SMILE] = 0
-    # FacialExpressionStates[FE_CLENCH] = 0
-
-    # upperFaceAction = IS_FacialExpressionGetUpperFaceAction(eState)
-    # upperFacePower = IS_FacialExpressionGetUpperFaceActionPower(eState)
-    # lowerFaceAction = IS_FacialExpressionGetLowerFaceAction(eState)
-    # lowerFacePower = IS_FacialExpressionGetLowerFaceActionPower(eState)
-    # FacialExpressionStates[upperFaceAction] = upperFacePower
-    # FacialExpressionStates[lowerFaceAction] = lowerFacePower
-
     emoStateDict['Time'] = insight.get_time_from_start(insight.eState)
     emoStateDict['UserID'] = insight.get_userID(insight.eEvent, insight.user)
     emoStateDict['wirelessSigStatus'] = insight.get_wireless_signal_status(insight.eState)
@@ -38,10 +25,10 @@ def logEmoState():
     emoStateDict['leftWink'] = insight.get_left_wink(insight.eState)
     emoStateDict['rightWink'] = insight.get_right_wink(insight.eState)
 
-    # emoStateDict['Surprise'] = FacialExpressionStates[FE_SURPRISE]
-    # emoStateDict['Frown'] = FacialExpressionStates[FE_FROWN]
-    # emoStateDict['Clench'] = FacialExpressionStates[FE_CLENCH]
-    # emoStateDict['Smile'] = FacialExpressionStates[FE_SMILE]
+    emoStateDict['Surprise'] = insight.get_surprise(insight.eState)
+    emoStateDict['Frown'] = insight.get_frown(insight.eState)
+    emoStateDict['Clench'] = insight.get_clench(insight.eState)
+    emoStateDict['Smile'] = insight.get_smile(insight.eState)
 
     emoStateDict['longExcitement'] = \
         insight.get_long_term_excitement_score(insight.eState)

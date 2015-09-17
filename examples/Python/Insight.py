@@ -13,6 +13,16 @@ class Insight(object):
         self.composerPort = composerPort
         self.userID = ctypes.c_uint(userID)
         self.user = ctypes.pointer(self.userID)
+
+        self.FE_SURPRISE = 64
+        self.FE_FROWN = 32
+        self.FE_SMILE = 128
+        self.FE_CLENCH = 256
+        self.FacialExpressionStates = {}
+        self.FacialExpressionStates[self.FE_FROWN] = 0
+        self.FacialExpressionStates[self.FE_SURPRISE] = 0
+        self.FacialExpressionStates[self.FE_SMILE] = 0
+        self.FacialExpressionStates[self.FE_CLENCH] = 0
         try:
             if sys.platform.startswith('win32'):
                 self.libEDK = ctypes.cdll.LoadLibrary("InsightEDK.dll")
@@ -157,3 +167,29 @@ class Insight(object):
         IS_MentalCommandGetCurrentActionPower.restype = ctypes.c_float
         IS_MentalCommandGetCurrentActionPower.argtypes = [ctypes.c_void_p]
         return IS_MentalCommandGetCurrentActionPower(eState)
+
+    def lower_facial_expression_states(self, eState):
+        lower_face_action = self.get_lower_face_action(eState)
+        lower_face_action_power = self.get_lower_face_action_power(eState)
+        self.FacialExpressionStates[lower_face_action] = lower_face_action_power
+
+    def upper_facial_expression_states(self, eState):
+        self.upper_face_action = self.get_upper_face_action(eState)
+        self.upper_face_action_power = self.get_upper_face_action_power(eState)
+        self.FacialExpressionStates[self.upper_face_action] = self.upper_face_action_power
+
+    def get_surprise(self, eState):
+        self.upper_facial_expression_states(eState)
+        return self.FacialExpressionStates[self.FE_SURPRISE]
+
+    def get_frown(self, eState):
+        self.upper_facial_expression_states(eState)
+        return self.FacialExpressionStates[self.FE_FROWN]
+
+    def get_smile(self, eState):
+        self.lower_facial_expression_states(eState)
+        return self.FacialExpressionStates[self.FE_SMILE]
+
+    def get_clench(self, eState):
+        self.lower_facial_expression_states(eState)
+        return self.FacialExpressionStates[self.FE_CLENCH]
