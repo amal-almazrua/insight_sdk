@@ -164,7 +164,7 @@ FE_CLENCH = 0x0100
 
 
 # -------------------------------------------------------------------------
-
+# Make dictionary for logEmoState
 
 header = ['Time', 'UserID', 'wirelessSigStatus', 'Blink', 'leftWink',
           'rightWink', 'Surprise', 'Frown',
