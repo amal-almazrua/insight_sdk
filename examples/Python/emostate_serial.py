@@ -175,16 +175,17 @@ emoStateDict = {}
 for emoState in header:
     emoStateDict.setdefault(emoState, None)
 
-
-
 # -----------------------------------------------------------------------
 
 # connect to Arduino
 
+print "==================================================================="
 print "Please enter port for Arduino"
+print "==================================================================="
 print "Example:"
 print "Mac -- \n /dev/tty.usbmodem1451 "
 print "Windows -- \n COM4"
+print ">>"
 arduino_port = str(raw_input())
 
 setupSerial(arduino_port)
