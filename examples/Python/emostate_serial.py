@@ -228,8 +228,7 @@ while (1):
             print "%10.3f New EmoState from user %d ...\r" % (timestamp,
                                                               userID.value)
             logEmoState(userID, eState)
-            x = recvFromArduino(1)
-            print x
+            
     elif state != 0x0600:
         print "Internal error in Emotiv Engine ! "
     time.sleep(1)

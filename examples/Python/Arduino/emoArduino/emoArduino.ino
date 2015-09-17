@@ -5,7 +5,7 @@
 
 
 const byte numStatus = 15;
-byte ledPin[1] =  {13};
+byte ledPin =  {13};
 // Values sent over serial to Arduino.
 float Time;
 float userID;
@@ -38,6 +38,8 @@ unsigned long curMillis;
 unsigned long prevReplyToPCmillis = 0;
 unsigned long replyToPCinterval = 1000;
 int blink_rate = 0;
+int x = 0;
+int count = 15;
 
 //=============
 
@@ -45,15 +47,9 @@ void setup() {
   Serial.begin(9600);
 
     // flash LEDs so we know we are alive
-  for (byte n = 0; n < numStatus; n++) {
-     pinMode(ledPin[n], OUTPUT);
-     digitalWrite(ledPin[n], HIGH);
-  }
-  delay(500); // delay() is OK in setup as it only happens once
+    pinMode(ledPin, OUTPUT);
+    digitalWrite(ledPin, HIGH);
 
-  for (byte n = 0; n < numStatus; n++) {
-     digitalWrite(ledPin[n], LOW);
-  }
     // tell the PC we are ready
   Serial.println("<Arduino is ready>");
 }
@@ -202,17 +198,10 @@ void replyToPC() {
 }
 
 void blinkLEDs() {
-  if (Blink == 1) {
-    blink_rate = 100;
-    digitalWrite(ledPin[0], HIGH);
-    delay(blink_rate);
-    digitalWrite(ledPin[0], LOW);
-    delay(blink_rate);
-  }
-  blink_rate = Blink * 100;
-  digitalWrite(ledPin[0], HIGH);
-  delay(blink_rate);
-  digitalWrite(ledPin[0], LOW);
-  delay(blink_rate);
-
+      blink_rate = (int)Time;
+      digitalWrite(ledPin, HIGH);
+      delay(blink_rate);
+      digitalWrite(ledPin, LOW);
+      delay(blink_rate);
+  
 }
