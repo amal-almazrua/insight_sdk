@@ -7,7 +7,7 @@
 const byte numStatus = 15;
 byte ledPin[1] =  {13};
 // Values sent over serial to Arduino.
-float time;
+float Time;
 float userID;
 float wirelessSigStatus;
 float Blink;
@@ -114,7 +114,7 @@ void parseData() {
   //Serial.println(inputBuffer);
 
   strtokIndx = strtok(inputBuffer,","); // get the first part
-  time = atof(strtokIndx); //  convert to an integer
+  Time = atof(strtokIndx); //  convert to an integer
 
   strtokIndx = strtok(NULL, ","); // this continues where the previous call left off
   userID = atof(strtokIndx);
@@ -168,7 +168,7 @@ void replyToPC() {
   if (newDataFromPC) {
     newDataFromPC = false;
     Serial.print("<Time ");
-    Serial.print(time);
+    Serial.print(Time);
     Serial.print(" UserID ");
     Serial.print(userID);
     Serial.print(" wirelessSigStatus ");
