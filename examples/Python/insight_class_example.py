@@ -1,5 +1,5 @@
 from Insight import *
-from arduinoCom import *
+#from arduinoCom import *
 
 # -------------------------------------------------------------------------
 # Make dictionary for logEmoState
@@ -12,6 +12,57 @@ header = ['Time', 'UserID', 'wirelessSigStatus', 'Blink', 'leftWink',
 emoStateDict = {}
 for emoState in header:
     emoStateDict.setdefault(emoState, None)
+
+
+
+
+def logEmoState():
+
+    # FacialExpressionStates = {}
+    # FacialExpressionStates[FE_FROWN] = 0
+    # FacialExpressionStates[FE_SURPRISE] = 0
+    # FacialExpressionStates[FE_SMILE] = 0
+    # FacialExpressionStates[FE_CLENCH] = 0
+
+    # upperFaceAction = IS_FacialExpressionGetUpperFaceAction(eState)
+    # upperFacePower = IS_FacialExpressionGetUpperFaceActionPower(eState)
+    # lowerFaceAction = IS_FacialExpressionGetLowerFaceAction(eState)
+    # lowerFacePower = IS_FacialExpressionGetLowerFaceActionPower(eState)
+    # FacialExpressionStates[upperFaceAction] = upperFacePower
+    # FacialExpressionStates[lowerFaceAction] = lowerFacePower
+
+    emoStateDict['Time'] = insight.get_time_from_start(insight.eState)
+    emoStateDict['UserID'] = insight.get_userID(insight.eEvent, insight.user)
+    emoStateDict['wirelessSigStatus'] = insight.get_wireless_signal_status(insight.eState)
+    emoStateDict['Blink'] = insight.get_facial_expression_is_blink(insight.eState)
+    emoStateDict['leftWink'] = insight.get_left_wink(insight.eState)
+    emoStateDict['rightWink'] = insight.get_right_wink(insight.eState)
+
+    # emoStateDict['Surprise'] = FacialExpressionStates[FE_SURPRISE]
+    # emoStateDict['Frown'] = FacialExpressionStates[FE_FROWN]
+    # emoStateDict['Clench'] = FacialExpressionStates[FE_CLENCH]
+    # emoStateDict['Smile'] = FacialExpressionStates[FE_SMILE]
+
+    emoStateDict['longExcitement'] = \
+        insight.get_long_term_excitement_score(insight.eState)
+    emoStateDict['shortExcitement'] = insight.get_short_term_excitement_score(insight.eState)
+    emoStateDict['Boredom'] = insight.get_engagement_boredom_score(insight.eState)
+    emoStateDict['MentalCommand Action'] = insight.get_mental_command_current_action(insight.eState)
+    emoStateDict['MentalCommand Power'] = insight.get_mental_command_current_action_power(insight.eState)
+
+    print emoStateDict
+    emoStateTuple = (emoStateDict['Time'], emoStateDict['UserID'],
+                     emoStateDict['wirelessSigStatus'], emoStateDict['Blink'],
+                     emoStateDict['leftWink'], emoStateDict['rightWink'],
+                     emoStateDict['Surprise'], emoStateDict['Frown'],
+                     emoStateDict['Clench'], emoStateDict['Smile'],
+                     emoStateDict['longExcitement'], emoStateDict[
+                         'shortExcitement'],
+                     emoStateDict['Boredom'], emoStateDict[
+                         'MentalCommand Action'],
+                     emoStateDict['MentalCommand Power'])
+    # print emoStateTuple
+    #return valToArduino(emoStateTuple)
 
 # # -------------------------------------------------------------------------
 #
@@ -51,6 +102,8 @@ print "Start receiving Emostate! Press any key to stop logging...\n"
 
 # connect insight instance to Xavier composer or EmoEngine
 insight.connect()
+
+# event loop to update Insight state
 while (1):
     # set of operations to get state from Insight
     # returns 0 if successful
@@ -64,7 +117,7 @@ while (1):
             timestamp = insight.get_time_from_start(insight.eState)
             print "%10.3f New EmoState from user %d ...\r" % (timestamp,
                                                               user_ID)
-            print insight.get_wireless_signal_status(insight.eState)
+            logEmoState()
     elif state != 0x0600:
         print "Internal error in Emotiv Engine ! "
     time.sleep(1)
