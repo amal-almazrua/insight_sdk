@@ -1,9 +1,6 @@
 // intended for use with emostate_serial.py
 
 
-
-
-
 const byte numStatus = 15;
 byte ledPin =  13;
 // Values sent over serial to Arduino.
@@ -34,6 +31,7 @@ boolean newDataFromPC = false;
 char messageFromPC[buffSize] = {0};
 
 unsigned long curMillis;
+unsigned long prevMillis;
 
 unsigned long prevReplyToPCmillis = 0;
 unsigned long replyToPCinterval = 1000;
@@ -42,6 +40,20 @@ int x = 0;
 int count = 15;
 
 //=============
+
+void blinkLEDs() {
+    if ((curMillis - prevMillis) >= (int)Time) {
+     prevMillis = millis();
+    digitalWrite(13, !digitalRead(13)); 
+    }
+//      blink_rate = (int)Time;
+//      digitalWrite(ledPin, HIGH);
+//      delay(blink_rate);
+//      digitalWrite(ledPin, LOW);
+//      delay(blink_rate);
+
+}
+
 
 void setup() {
   Serial.begin(9600);
@@ -198,11 +210,4 @@ void replyToPC() {
   }
 }
 
-void blinkLEDs() {
-      blink_rate = (int)Time;
-      digitalWrite(ledPin, HIGH);
-      delay(blink_rate);
-      digitalWrite(ledPin, LOW);
-      delay(blink_rate);
 
-}

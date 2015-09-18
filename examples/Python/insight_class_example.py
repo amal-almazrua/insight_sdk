@@ -105,9 +105,7 @@ while (1):
             print "%10.3f New EmoState from user %d ...\r" % (timestamp,
                                                               user_ID)
             send_emo_state_to_arduino()
-            # wait for arduino to process sent data
-            time.sleep(1)
-            print recvFromArduino(1)
+
     elif state != 0x0600:
         print "Internal error in Emotiv Engine ! "
     time.sleep(1)
