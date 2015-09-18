@@ -1,5 +1,5 @@
 from Insight import *
-#from arduinoCom import *
+from arduinoCom import *
 
 # -------------------------------------------------------------------------
 # Make dictionary for logEmoState
@@ -54,16 +54,16 @@ def send_emo_state_to_arduino():
 # # -------------------------------------------------------------------------
 #
 # # connect to Arduino
-#
-# print "==================================================================="
-# print "Please enter port for Arduino"
-# print "==================================================================="
-# print "Example:"
-# print "Mac -- \n /dev/tty.usbmodem1451 "
-# print "Windows -- \n COM4"
-# print ">>"
-# arduino_port = str(raw_input())
-# setupSerial(arduino_port)
+
+print "==================================================================="
+print "Please enter port for Arduino"
+print "==================================================================="
+print "Example:"
+print "Mac -- \n /dev/tty.usbmodem1451 "
+print "Windows -- \n COM4"
+print ">>"
+arduino_port = str(raw_input())
+setupSerial(arduino_port)
 # -------------------------------------------------------------------------
 # start EmoEngine or EmoComposer
 

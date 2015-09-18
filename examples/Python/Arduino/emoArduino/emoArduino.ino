@@ -5,7 +5,7 @@
 
 
 const byte numStatus = 15;
-byte ledPin =  {13};
+byte ledPin =  13;
 // Values sent over serial to Arduino.
 float Time;
 float userID;
