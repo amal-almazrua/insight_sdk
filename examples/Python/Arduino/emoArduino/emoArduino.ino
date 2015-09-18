@@ -163,7 +163,8 @@ void replyToPC() {
 
   if (newDataFromPC) {
     newDataFromPC = false;
-    Serial.print("<Time ");
+    Serial.print("<");
+    Serial.print(" Time ");
     Serial.print(Time);
     Serial.print(" UserID ");
     Serial.print(userID);
@@ -203,5 +204,5 @@ void blinkLEDs() {
       delay(blink_rate);
       digitalWrite(ledPin, LOW);
       delay(blink_rate);
-  
+
 }

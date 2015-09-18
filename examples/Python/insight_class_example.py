@@ -16,7 +16,7 @@ for emoState in header:
 
 
 
-def logEmoState():
+def send_emo_state_to_arduino():
 
     emoStateDict['Time'] = insight.get_time_from_start(insight.eState)
     emoStateDict['UserID'] = insight.get_userID(insight.eEvent, insight.user)
@@ -49,7 +49,7 @@ def logEmoState():
                          'MentalCommand Action'],
                      emoStateDict['MentalCommand Power'])
     # print emoStateTuple
-    #return valToArduino(emoStateTuple)
+    valToArduino(emoStateTuple)
 
 # # -------------------------------------------------------------------------
 #
@@ -104,7 +104,10 @@ while (1):
             timestamp = insight.get_time_from_start(insight.eState)
             print "%10.3f New EmoState from user %d ...\r" % (timestamp,
                                                               user_ID)
-            logEmoState()
+            send_emo_state_to_arduino()
+            # wait for arduino to process sent data
+            time.sleep(1)
+            print recvFromArduino(1)
     elif state != 0x0600:
         print "Internal error in Emotiv Engine ! "
     time.sleep(1)
