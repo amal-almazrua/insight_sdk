@@ -33,6 +33,7 @@
         #endif
     #endif
 #else
+	#include "IEmoStatePerformanceMetric.h"
     #define EDK_API extern
 #endif
 
@@ -162,7 +163,7 @@ extern "C"
         double              yLoc;       //!< Y coordinate from center of head towards ears
         double              zLoc;       //!< Z coordinate from center of head toward top of skull
     } IInputSensorDescriptor_t;
-
+    
     //! Motion data channel description
     typedef enum IEE_MotionDataChannel_enum {
         IMD_COUNTER = 0,        //!< Sample counter
@@ -1091,31 +1092,7 @@ extern "C"
     */
     EDK_API int
         IEE_HeadsetGyroRezero(unsigned int userId);
-    
-    
-    //! Enable/disable particular detections
-    /*!
-        By default, all detections are enabled.
-        This method should be called before calling IEE_EngineConnect().
-        If it is already connected, IEE_EngineDisconnect() should be called first before calling IEE_EngineConnect() again.
-     
-        \param value - bitwise value of detections to be enabled
-     
-        \sa IEE_CheckDetectionsEnabled(), IEE_Detection_t
-     */
-    EDK_API void
-        IEE_EnableDetections(unsigned long value);
-    
-    
-    //! Check if particular detections are enabled
-    /*!
-        \param result - store enabled detection bits in result
-     
-        \sa IEE_EnableDetections(), IEE_Detection_t
-     */
-    EDK_API void
-        IEE_CheckDetectionsEnabled(unsigned long* result);
-    
+   
     
     //! Return a handle to memory that can hold motion data.
     //  This handle can be reused by the caller to retrieve subsequent data.

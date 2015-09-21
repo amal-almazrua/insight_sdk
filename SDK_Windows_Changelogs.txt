@@ -1,0 +1,11 @@
+SDK Windows Changelogs
+
+============================================================================
+Version 3.1.19 
+Released: 18/9/2015
+
+- EDK libs
+    + Support EPOC, EPOC+, INSIGHT headsets on dongle, BTLE connection.
+    + Iedk functions can work with EPOC, EPOC+, INSIGHT headsets.
+    + Support 32bit, 64bit. 
+============================================================================

@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "EEGLogger-vs2010", "EEGLogger\EEGLogger-vs2010.vcxproj", "{9DCC5DE8-A4B0-4F19-879D-796257635B5A}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "EmoStateAndEEGLogger-vs2010", "EmoStateAndEEGLogger\EmoStateAndEEGLogger-vs2010.vcxproj", "{E868039E-CDBD-4BD8-B2A7-E5C1A42EB486}"
-EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "EmoStateLogger", "EmoStateLogger\EmoStateLogger.vcxproj", "{5EF7DF22-CF68-47C3-8A79-4D49561F54F8}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "FacialExpressionDemo-vs2010", "FacialExpressionDemo\FacialExpressionDemo-vs2010.vcxproj", "{70A22167-F409-40DB-862A-6D4D3D75F799}"
@@ -16,10 +14,6 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MultiDongleConnection-vs2010", "MultiDongleConnection\MultiDongleConnection-vs2010.vcxproj", "{EB30969B-5A96-4415-832E-FC61D0E1F092}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MultiDongleEEGLogger-vs2010", "MultiDongleEEGLogger\MultiDongleEEGLogger-vs2010.vcxproj", "{EA64E907-B4A3-40E7-9732-8DBF73348DFD}"
-EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PerformanceMetricsDemo", "PerformanceMetricsDemo\PerformanceMetricsDemo.vcxproj", "{CC8344C8-327C-4FE2-8E72-43B317EF4CC9}"
-EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ProfileUpload", "ProfileUpload\ProfileUpload.vcxproj", "{7A887966-483F-473D-9006-551ADEB24331}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MultilChannelEEGLogger", "MultilChannelEEGLogger\MultilChannelEEGLogger.vcxproj", "{5F383388-148C-4496-824A-2B984D1D50B6}"
 EndProject
@@ -43,14 +37,6 @@ Global
 		{9DCC5DE8-A4B0-4F19-879D-796257635B5A}.Release|Win32.Build.0 = Release|Win32
 		{9DCC5DE8-A4B0-4F19-879D-796257635B5A}.Release|x64.ActiveCfg = Release|x64
 		{9DCC5DE8-A4B0-4F19-879D-796257635B5A}.Release|x64.Build.0 = Release|x64
-		{E868039E-CDBD-4BD8-B2A7-E5C1A42EB486}.Debug|Win32.ActiveCfg = Debug|Win32
-		{E868039E-CDBD-4BD8-B2A7-E5C1A42EB486}.Debug|Win32.Build.0 = Debug|Win32
-		{E868039E-CDBD-4BD8-B2A7-E5C1A42EB486}.Debug|x64.ActiveCfg = Debug|x64
-		{E868039E-CDBD-4BD8-B2A7-E5C1A42EB486}.Debug|x64.Build.0 = Debug|x64
-		{E868039E-CDBD-4BD8-B2A7-E5C1A42EB486}.Release|Win32.ActiveCfg = Release|Win32
-		{E868039E-CDBD-4BD8-B2A7-E5C1A42EB486}.Release|Win32.Build.0 = Release|Win32
-		{E868039E-CDBD-4BD8-B2A7-E5C1A42EB486}.Release|x64.ActiveCfg = Release|x64
-		{E868039E-CDBD-4BD8-B2A7-E5C1A42EB486}.Release|x64.Build.0 = Release|x64
 		{5EF7DF22-CF68-47C3-8A79-4D49561F54F8}.Debug|Win32.ActiveCfg = Debug|Win32
 		{5EF7DF22-CF68-47C3-8A79-4D49561F54F8}.Debug|Win32.Build.0 = Debug|Win32
 		{5EF7DF22-CF68-47C3-8A79-4D49561F54F8}.Debug|x64.ActiveCfg = Debug|x64
@@ -98,22 +84,6 @@ Global
 		{EA64E907-B4A3-40E7-9732-8DBF73348DFD}.Release|Win32.Build.0 = Release|Win32
 		{EA64E907-B4A3-40E7-9732-8DBF73348DFD}.Release|x64.ActiveCfg = Release|x64
 		{EA64E907-B4A3-40E7-9732-8DBF73348DFD}.Release|x64.Build.0 = Release|x64
-		{CC8344C8-327C-4FE2-8E72-43B317EF4CC9}.Debug|Win32.ActiveCfg = Debug|Win32
-		{CC8344C8-327C-4FE2-8E72-43B317EF4CC9}.Debug|Win32.Build.0 = Debug|Win32
-		{CC8344C8-327C-4FE2-8E72-43B317EF4CC9}.Debug|x64.ActiveCfg = Debug|x64
-		{CC8344C8-327C-4FE2-8E72-43B317EF4CC9}.Debug|x64.Build.0 = Debug|x64
-		{CC8344C8-327C-4FE2-8E72-43B317EF4CC9}.Release|Win32.ActiveCfg = Release|Win32
-		{CC8344C8-327C-4FE2-8E72-43B317EF4CC9}.Release|Win32.Build.0 = Release|Win32
-		{CC8344C8-327C-4FE2-8E72-43B317EF4CC9}.Release|x64.ActiveCfg = Release|x64
-		{CC8344C8-327C-4FE2-8E72-43B317EF4CC9}.Release|x64.Build.0 = Release|x64
-		{7A887966-483F-473D-9006-551ADEB24331}.Debug|Win32.ActiveCfg = Debug|Win32
-		{7A887966-483F-473D-9006-551ADEB24331}.Debug|Win32.Build.0 = Debug|Win32
-		{7A887966-483F-473D-9006-551ADEB24331}.Debug|x64.ActiveCfg = Debug|x64
-		{7A887966-483F-473D-9006-551ADEB24331}.Debug|x64.Build.0 = Debug|x64
-		{7A887966-483F-473D-9006-551ADEB24331}.Release|Win32.ActiveCfg = Release|Win32
-		{7A887966-483F-473D-9006-551ADEB24331}.Release|Win32.Build.0 = Release|Win32
-		{7A887966-483F-473D-9006-551ADEB24331}.Release|x64.ActiveCfg = Release|x64
-		{7A887966-483F-473D-9006-551ADEB24331}.Release|x64.Build.0 = Release|x64
 		{5F383388-148C-4496-824A-2B984D1D50B6}.Debug|Win32.ActiveCfg = Debug|Win32
 		{5F383388-148C-4496-824A-2B984D1D50B6}.Debug|Win32.Build.0 = Debug|Win32
 		{5F383388-148C-4496-824A-2B984D1D50B6}.Debug|x64.ActiveCfg = Debug|x64
