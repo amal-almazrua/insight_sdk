@@ -49,6 +49,8 @@ extern "C"
 
     } IEE_EmotivSuite_t;
 
+//DEPLOYMENT::NON_PREMIUM_RELEASE::REMOVE_START
+
     //! FacialExpression facial expression type enumerator
     typedef enum IEE_FacialExpressionAlgo_enum {
 
@@ -83,6 +85,8 @@ extern "C"
         MC_DISAPPEAR                = 0x2000
 
     } IEE_MentalCommandAction_t;
+
+//DEPLOYMENT::NON_PREMIUM_RELEASE::REMOVE_END
     
     //! Wireless Signal Strength enumerator
     typedef enum IEE_SignalStrength_enum {
@@ -136,6 +140,7 @@ extern "C"
         
     } IEE_EEG_ContactQuality_t;
 
+
     //! Create EmoState handle.
     /*!
         NOTE: THIS FUNCTION HAS BEEN DEPRECATED - please use IEE_EmoStateCreate instead.
@@ -150,6 +155,7 @@ extern "C"
     EMOSTATE_DLL_API EmoStateHandle
         IS_Create();
 
+
     //! Free EmoState handle
     /*!
         NOTE: THIS FUNCTION HAS BEEN DEPRECATED - please use IEE_EmoStateFree instead.
@@ -161,6 +167,7 @@ extern "C"
     EMOSTATE_DLL_API void
         IS_Free(EmoStateHandle state);
 
+
     //! Initialize the EmoState into neutral state
     /*!
         \param state - EmoStateHandle
@@ -169,6 +176,7 @@ extern "C"
     */
     EMOSTATE_DLL_API void
         IS_Init(EmoStateHandle state);
+
 
     //! Return the time since EmoEngine has been successfully connected to the headset
     /*!
@@ -183,6 +191,7 @@ extern "C"
     EMOSTATE_DLL_API float
         IS_GetTimeFromStart(EmoStateHandle state);
 
+
     //! Return whether the headset has been put on correctly or not
     /*!
         If the headset cannot not be detected on the head, then signal quality will not report
@@ -195,6 +204,7 @@ extern "C"
     EMOSTATE_DLL_API int
         IS_GetHeadsetOn(EmoStateHandle state);
 
+
     //! Query the number of channels of available sensor contact quality data
     /*!
         \param state - EmoStateHandle
@@ -204,6 +214,7 @@ extern "C"
     */
     EMOSTATE_DLL_API int
         IS_GetNumContactQualityChannels(EmoStateHandle state);
+
 
     //! Query the contact quality of a specific EEG electrode
     /*!
@@ -217,6 +228,7 @@ extern "C"
     EMOSTATE_DLL_API IEE_EEG_ContactQuality_t
         IS_GetContactQuality(EmoStateHandle state,
                              IEE_InputChannels_t electroIdx);
+
 
     //! Query the contact quality of all the electrodes in one single call
     /*!
@@ -241,6 +253,32 @@ extern "C"
                                             IEE_EEG_ContactQuality_t* contactQuality,
                                             size_t numChannels);
 
+
+	//! Query of the current wireless signal strength
+	/*!
+		\param state - EmoStateHandle
+
+		\return wireless signal strength [No Signal, Bad, Fair, Good, Excellent].
+
+		\sa IEE_SignalStrength_t
+	*/
+	EMOSTATE_DLL_API IEE_SignalStrength_t
+		IS_GetWirelessSignalStatus(EmoStateHandle state);
+
+
+	//! Get the level of charge remaining in the headset battery
+	/*!
+		\param state            - EmoStateHandle
+		\param chargeLevel      - the current level of charge in the headset battery
+		\param maxChargeLevel   - the maximum level of charge in the battery
+	*/
+	EMOSTATE_DLL_API void
+		IS_GetBatteryChargeLevel(EmoStateHandle state,
+		                         int* chargeLevel,
+		                         int* maxChargeLevel);
+
+//DEPLOYMENT::NON_PREMIUM_RELEASE::REMOVE_START
+
     //! Query whether the user is blinking at the time the EmoState is captured.
     /*!
         \param state - EmoStateHandle
@@ -250,6 +288,7 @@ extern "C"
     */
     EMOSTATE_DLL_API int
         IS_FacialExpressionIsBlink(EmoStateHandle state);
+
 
     //! Query whether the user is winking left at the time the EmoState is captured.
     /*!
@@ -262,6 +301,7 @@ extern "C"
     EMOSTATE_DLL_API int
         IS_FacialExpressionIsLeftWink(EmoStateHandle state);
 
+
     //! Query whether the user is winking right at the time the EmoState is captured.
     /*!
         \param state - EmoStateHandle
@@ -273,6 +313,7 @@ extern "C"
     EMOSTATE_DLL_API int
         IS_FacialExpressionIsRightWink(EmoStateHandle state);
 
+
     //! Query whether the eyes of the user are opened at the time the EmoState is captured.
     /*!
         \param state - EmoStateHandle
@@ -282,6 +323,7 @@ extern "C"
     */
     EMOSTATE_DLL_API int
         IS_FacialExpressionIsEyesOpen(EmoStateHandle state);
+
 
     //! Query whether the user is looking up at the time the EmoState is captured.
     /*!
@@ -294,6 +336,7 @@ extern "C"
     EMOSTATE_DLL_API int
         IS_FacialExpressionIsLookingUp(EmoStateHandle state);
 
+
     //! Query whether the user is looking down at the time the EmoState is captured.
     /*!
         \param state - EmoStateHandle
@@ -304,6 +347,7 @@ extern "C"
     */
     EMOSTATE_DLL_API int
         IS_FacialExpressionIsLookingDown(EmoStateHandle state);
+
 
     //! Query the eyelids state of the user
     /*!
@@ -321,6 +365,7 @@ extern "C"
         IS_FacialExpressionGetEyelidState(EmoStateHandle state,
                                           float* leftEye,
                                           float* rightEye);
+
 
     //! Query the eyes position of the user
     /*!
@@ -346,6 +391,7 @@ extern "C"
                                           float* x,
                                           float* y);
 
+
     //! Returns the eyebrow extent of the user (Obsolete function)
     /*!
         \param state - EmoStateHandle
@@ -357,6 +403,7 @@ extern "C"
     EMOSTATE_DLL_API float
         IS_FacialExpressionGetEyebrowExtent(EmoStateHandle state);
 
+
     //! Returns the smile extent of the user (Obsolete function)
     /*!
         \param state - EmoStatehandle
@@ -367,6 +414,7 @@ extern "C"
     */
     EMOSTATE_DLL_API float
         IS_FacialExpressionGetSmileExtent(EmoStateHandle state);
+
 
     //! Returns the clench extent of the user (Obsolete function)
     /*!
@@ -391,6 +439,7 @@ extern "C"
     EMOSTATE_DLL_API IEE_FacialExpressionAlgo_t
         IS_FacialExpressionGetUpperFaceAction(EmoStateHandle state);
 
+
     //! Returns the detected upper face FacialExpression action power of the user
     /*!
         \param state - EmoStatehandle
@@ -401,6 +450,7 @@ extern "C"
     */
     EMOSTATE_DLL_API float
         IS_FacialExpressionGetUpperFaceActionPower(EmoStateHandle state);
+
 
     //! Returns the detected lower face FacialExpression action of the user
     /*!
@@ -413,6 +463,7 @@ extern "C"
     EMOSTATE_DLL_API IEE_FacialExpressionAlgo_t
         IS_FacialExpressionGetLowerFaceAction(EmoStateHandle state);
 
+
     //! Returns the detected lower face FacialExpression action power of the user
     /*!
         \param state - EmoStatehandle
@@ -423,6 +474,7 @@ extern "C"
     */
     EMOSTATE_DLL_API float
         IS_FacialExpressionGetLowerFaceActionPower(EmoStateHandle state);
+
     
     //! Query whether the signal is too noisy for FacialExpression detection to be active
     /*!
@@ -436,6 +488,7 @@ extern "C"
     EMOSTATE_DLL_API int
         IS_FacialExpressionIsActive(EmoStateHandle state,
                                     IEE_FacialExpressionAlgo_t type);
+
     
     //! Returns the detected MentalCommand action of the user
     /*!
@@ -448,6 +501,7 @@ extern "C"
     EMOSTATE_DLL_API IEE_MentalCommandAction_t
         IS_MentalCommandGetCurrentAction(EmoStateHandle state);
 
+
     //! Returns the detected MentalCommand action power of the user
     /*!
         \param state - EmoStateHandle
@@ -458,6 +512,7 @@ extern "C"
     */
     EMOSTATE_DLL_API float
         IS_MentalCommandGetCurrentActionPower(EmoStateHandle state);
+
     
     //! Query whether the signal is too noisy for MentalCommand detection to be active
     /*!
@@ -468,27 +523,6 @@ extern "C"
     EMOSTATE_DLL_API int
         IS_MentalCommandIsActive(EmoStateHandle state);
 
-    //! Query of the current wireless signal strength
-    /*!
-        \param state - EmoStateHandle
-
-        \return wireless signal strength [No Signal, Bad, Fair, Good, Excellent].
-
-        \sa IEE_SignalStrength_t
-    */
-    EMOSTATE_DLL_API IEE_SignalStrength_t
-        IS_GetWirelessSignalStatus(EmoStateHandle state);
-
-    //! Clone EmoStateHandle
-    /*!
-        \param a - Destination of EmoStateHandle
-        \param b - Source of EmoStateHandle
-
-        \sa IS_Create
-    */
-    EMOSTATE_DLL_API void
-        IS_Copy(EmoStateHandle a,
-                EmoStateHandle b);
 
     //! Check whether two states are with identical FacialExpression state, i.e. are both state representing the same facial expression
     /*!
@@ -503,6 +537,7 @@ extern "C"
         IS_FacialExpressionEqual(EmoStateHandle a,
                                  EmoStateHandle b);
 
+
     //! Check whether two states are with identical MentalCommand state
     /*!
         \param a - EmoStateHandle
@@ -515,6 +550,20 @@ extern "C"
     EMOSTATE_DLL_API int
         IS_MentalCommandEqual(EmoStateHandle a,
                               EmoStateHandle b);
+
+//DEPLOYMENT::NON_PREMIUM_RELEASE::REMOVE_END
+
+
+	//! Clone EmoStateHandle
+	/*!
+		\param a - Destination of EmoStateHandle
+		\param b - Source of EmoStateHandle
+
+		\sa IS_Create
+	*/
+	EMOSTATE_DLL_API void
+		IS_Copy(EmoStateHandle a,
+		EmoStateHandle b);
 
     //! Check whether two states are with identical EmoEngine state.
     /*!
@@ -544,18 +593,6 @@ extern "C"
     EMOSTATE_DLL_API int
         IS_Equal(EmoStateHandle a,
                  EmoStateHandle b);
-
-    //! Get the level of charge remaining in the headset battery
-    /*!
-        \param state            - EmoStateHandle
-        \param chargeLevel      - the current level of charge in the headset battery
-        \param maxChargeLevel   - the maximum level of charge in the battery
-
-    */
-    EMOSTATE_DLL_API void
-        IS_GetBatteryChargeLevel(EmoStateHandle state,
-                                 int* chargeLevel,
-                                 int* maxChargeLevel);
 
 #ifdef __cplusplus
 };
