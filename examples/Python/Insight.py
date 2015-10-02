@@ -25,7 +25,7 @@ class Insight(object):
         self.FacialExpressionStates[self.FE_CLENCH] = 0
         try:
             if sys.platform.startswith('win32'):
-                self.libEDK = ctypes.cdll.LoadLibrary("InsightEDK.dll")
+                self.libEDK = ctypes.cdll.LoadLibrary("edk.dll")
             if sys.platform.startswith('linux'):
                 srcDir = os.getcwd()
                 libPath = srcDir + "/self.libEDK.so.1.0.0"
